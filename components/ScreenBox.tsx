@@ -3,6 +3,7 @@ import React from "react";
 
 interface ScreenBoxProps {
 	children?: JSX.Element | JSX.Element[];
+	backColor: string;
 }
 
 export const ScreenBox = (props: ScreenBoxProps) => {
@@ -14,7 +15,7 @@ export const ScreenBox = (props: ScreenBoxProps) => {
 			safeArea
 			px="6"
 			py="0"
-			backgroundColor="purple.100"
+			backgroundColor={props.backColor}
 		>
 			{props.children}
 		</Box>

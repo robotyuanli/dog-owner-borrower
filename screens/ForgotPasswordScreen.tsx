@@ -11,7 +11,7 @@ import {
 import { useNavigation } from "@react-navigation/core";
 import { ScreenBox } from "../components/ScreenBox";
 
-export default function SignInScreen() {
+export default function ForgotPasswordScreen() {
   const navigation = useNavigation();
   return (
     <ScreenBox backColor="purple.100">
@@ -19,11 +19,10 @@ export default function SignInScreen() {
         <Spacer></Spacer>
         <Center mb="10">
           <Text color="dark.500" fontSize={20} fontWeight="bold">
-            To log in
+						Resetting your password
           </Text>
         </Center>
         <Input placeholder="Your email" />
-        <Input placeholder="Password" />
 
         <Button
           mt="5"
@@ -32,7 +31,7 @@ export default function SignInScreen() {
           colorScheme="rose"
           _text={{ color: "white" }}
         >
-          To log in
+          Send
         </Button>
         <Spacer></Spacer>
         <Center mb="5">
@@ -41,18 +40,9 @@ export default function SignInScreen() {
             color="dark.500"
             fontSize={15}
             fontWeight="bold"
-            onPress={() => navigation.navigate("ForgotPasswordScreen")}
+            onPress={() => navigation.navigate("SignInScreen")}
           >
-            Forgot your password ?
-          </Text>
-          <Text
-            mb="5"
-            color="dark.500"
-            fontSize={15}
-            fontWeight="bold"
-            onPress={() => navigation.navigate("SignUpScreen")}
-          >
-            Not registered?
+            To log in
           </Text>
           <Image
             alt="dog"

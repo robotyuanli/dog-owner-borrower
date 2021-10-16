@@ -12,7 +12,9 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
+import WelcomeScreen from "../screens/WelcomeScreen";
 import SignInScreen from "../screens/SignInScreen";
+import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import SuggestionScreen from "../screens/SuggestionScreen";
 import NotificationsScreen from "../screens/NotificationsScreen";
@@ -75,6 +77,11 @@ function OnboardingNavigator() {
 			}}
 		>
 			<OnboardingStack.Screen
+				name="WelcomeScreen"
+				component={WelcomeScreen}
+				options={{ headerShown: false }}
+			/>
+			<OnboardingStack.Screen
 				name="SignUpScreen"
 				component={SignUpScreen}
 				options={{ headerShown: false }}
@@ -92,6 +99,11 @@ function OnboardingNavigator() {
         component={SignInScreen}
         options={{ headerShown: false }}
       />
+      <OnboardingStack.Screen
+        name="ForgotPasswordScreen"
+        component={ForgotPasswordScreen}
+        options={{ headerShown: false }}
+      />			
     </OnboardingStack.Navigator>
   );
 }
