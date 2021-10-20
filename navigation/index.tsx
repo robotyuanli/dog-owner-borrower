@@ -15,12 +15,17 @@ import * as React from "react";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import SignInScreen from "../screens/SignInScreen";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
-import EditProfileScreen from "../screens/EditProfileScreen";
-import SuggestionScreen from "../screens/SuggestionScreen";
-import NotificationsScreen from "../screens/NotificationsScreen";
-import ChangePasswordScreen from "../screens/ChangePasswordScreen";
-import SettingsScreen from "../screens/SettingsScreen";
-import TabTwoScreen from "../screens/TabTwoScreen";
+import SearchScreen from "../screens/SearchScreen";
+import MessageScreen from "../screens/MessageScreen";
+import FavouriteScreen from "../screens/FavouriteScreen";
+import PremiumScreen from "../screens/PremiumScreen";
+import SignUpScreen from "../screens/SignUpScreen";
+import DogOwnerScreen from "../screens/DogOwnerScreen";
+import DogBorrowerScreen from "../screens/DogBorrowerScreen";
+import { SearchTitle } from "../components/SearchTitle";
+import { SearchLeft } from "../components/SearchLeft";
+import { SearchRight } from "../components/SearchRight";
+
 import {
   OnboardingStackParamList,
   RootStackParamList,
@@ -29,19 +34,14 @@ import {
   AuthenticatedStackParamList,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
-import SignUpScreen from "../screens/SignUpScreen";
-import DogOwnerScreen from "../screens/DogOwnerScreen";
-import DogBorrowerScreen from "../screens/DogBorrowerScreen";
 import { useAuth } from "../stores/useAuth";
-import { theme, useTheme } from "native-base";
-import CustomizeTopicsScreen from "../screens/CustomizeTopicsScreen";
-import PushNotificationsSettingsScreen from "../screens/PushNotificationsSettingsScreen";
+import { theme, useTheme, Text } from "native-base";
 
 export default function Navigation() {
   const MyTheme = {
     ...DefaultTheme,
     colors: {
-      background: theme.colors.purple[100],
+      background: theme.colors.dark[600],
       text: theme.colors.white,
       border: theme.colors.purple[100],
       primary: theme.colors.yellow[500],
@@ -61,36 +61,37 @@ export default function Navigation() {
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const OnboardingStack = createNativeStackNavigator<OnboardingStackParamList>();
-const AuthenticatedStack =
-  createNativeStackNavigator<AuthenticatedStackParamList>();
+const AuthenticatedStack = createNativeStackNavigator<
+  AuthenticatedStackParamList
+>();
 
 function OnboardingNavigator() {
   return (
     <OnboardingStack.Navigator
-			screenOptions={{
-				headerStyle: {
-					backgroundColor: theme.colors.purple[100],
-				},
-				headerTitle: "",
-				headerBackTitle: "",
-				headerTintColor: theme.colors.dark[400],
-			}}
-		>
-			<OnboardingStack.Screen
-				name="WelcomeScreen"
-				component={WelcomeScreen}
-				options={{ headerShown: false }}
-			/>
-			<OnboardingStack.Screen
-				name="SignUpScreen"
-				component={SignUpScreen}
-				options={{ headerShown: false }}
-			/>
-			<OnboardingStack.Screen
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: theme.colors.purple[100],
+        },
+        headerTitle: "",
+        headerBackTitle: "",
+        headerTintColor: theme.colors.dark[400],
+      }}
+    >
+      <OnboardingStack.Screen
+        name="WelcomeScreen"
+        component={WelcomeScreen}
+        options={{ headerShown: false }}
+      />
+      <OnboardingStack.Screen
+        name="SignUpScreen"
+        component={SignUpScreen}
+        options={{ headerShown: false }}
+      />
+      <OnboardingStack.Screen
         name="DogOwnerScreen"
         component={DogOwnerScreen}
       />
-			<OnboardingStack.Screen
+      <OnboardingStack.Screen
         name="DogBorrowerScreen"
         component={DogBorrowerScreen}
       />
@@ -103,68 +104,19 @@ function OnboardingNavigator() {
         name="ForgotPasswordScreen"
         component={ForgotPasswordScreen}
         options={{ headerShown: false }}
-      />			
+      />
     </OnboardingStack.Navigator>
   );
 }
 
 function AuthenticatedNavigator() {
   return (
-    <AuthenticatedStack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: theme.colors.blueGray[800],
-        },
-        headerBackTitle: "",
-        headerTintColor: "#fff",
-      }}
-    >
+    <AuthenticatedStack.Navigator>
       <AuthenticatedStack.Screen
         name="Root"
         component={BottomTabNavigator}
         options={{ headerShown: false }}
       />
-      <AuthenticatedStack.Screen
-        name="PushNotificationsSettingsScreen"
-        component={PushNotificationsSettingsScreen}
-        options={{
-          title: "Push Notifications",
-        }}
-      />
-      <AuthenticatedStack.Screen
-        name="CustomizeTopicsScreen"
-        component={CustomizeTopicsScreen}
-        options={{
-          title: "Customize Topics",
-        }}
-      />
-      <AuthenticatedStack.Screen
-        name="ChangePasswordScreen"
-        component={ChangePasswordScreen}
-        options={{
-          title: "Change Password",
-        }}
-      />
-      <AuthenticatedStack.Screen 
-        name="EditProfileScreen"
-        component={EditProfileScreen}
-        options={{
-          title: "Edit Profile",
-        }}
-      />
-      <AuthenticatedStack.Screen 
-        name="SuggestionScreen"
-        options={{
-					title: "Suggest a Feature",
-				}}
-      >
-					{props => <SuggestionScreen 
-											label="Request a festure"
-											placeholder="I would like to see a feature"
-											hint="Is there a feature you'd like to see on the app? Please send us a request"
-										/>
-					}
-			</AuthenticatedStack.Screen>
     </AuthenticatedStack.Navigator>
   );
 }
@@ -174,19 +126,16 @@ function RootNavigator() {
   console.log(auth);
   return (
     <Stack.Navigator>
-      {auth?.loggedIn ? (
-        <Stack.Screen
-          name="Root"
-          component={AuthenticatedNavigator}
-          options={{ headerShown: false }}
-        />
-      ) : (
-        <Stack.Screen
-          name="Onboarding"
-          component={OnboardingNavigator}
-          options={{ headerShown: false }}
-        />
-      )}
+      <Stack.Screen
+        name="Onboarding"
+        component={OnboardingNavigator}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Root"
+        component={AuthenticatedNavigator}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }
@@ -199,41 +148,54 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
   return (
-    <BottomTab.Navigator initialRouteName="SettingsScreen" screenOptions={{}}>
+    <BottomTab.Navigator
+      initialRouteName="SearchScreen"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#ff2643",
+        },
+      }}
+    >
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
-        options={{
-          tabBarLabel: () => {
-            return null;
-          },
-          tabBarIcon: ({ focused }) => (
-            <TabBarIcon
-              name="code"
-              color={focused ? theme.colors.yellow[300] : theme.colors.white}
-            />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="SettingsScreen"
-        component={SettingsScreen}
+        name="SearchScreen"
+        component={SearchScreen}
         options={() => ({
-          headerShown: false,
+          headerTitleAlign: "center",
+          headerTitle: () => <SearchTitle></SearchTitle>,
+          headerLeft: () => <SearchLeft></SearchLeft>,
+          headerRight: () => <SearchRight></SearchRight>,
           tabBarLabel: () => {
             return null;
           },
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
-              name="gear"
-              color={focused ? theme.colors.yellow[300] : theme.colors.white}
+              name="search"
+              title="Search"
+              color={focused ? theme.colors.rose[500] : theme.colors.dark[500]}
             />
           ),
         })}
       />
       <BottomTab.Screen
-        name="NotificationsScreen"
-        component={NotificationsScreen}
+        name="MessageScreen"
+        component={MessageScreen}
+        options={{
+          headerShown: false,
+          tabBarLabel: () => {
+            return null;
+          },
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              name="envelope"
+              title="Message"
+              color={focused ? theme.colors.rose[500] : theme.colors.dark[500]}
+            />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="FavouriteScreen"
+        component={FavouriteScreen}
         options={() => ({
           headerShown: false,
           tabBarLabel: () => {
@@ -241,8 +203,28 @@ function BottomTabNavigator() {
           },
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
-              name="bell"
-              color={focused ? theme.colors.yellow[300] : theme.colors.white}
+              name="heart"
+              title="Favourite"
+              color={focused ? theme.colors.rose[500] : theme.colors.dark[500]}
+            />
+          ),
+        })}
+      />
+      <BottomTab.Screen
+        name="PremiumScreen"
+        component={PremiumScreen}
+        options={() => ({
+          headerShown: false,
+          tabBarLabel: () => {
+            return null;
+          },
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              name="paw"
+              title="Premium"
+              color={
+                focused ? theme.colors.rose[500] : theme.colors.yellow[300]
+              }
             />
           ),
         })}
@@ -257,6 +239,16 @@ function BottomTabNavigator() {
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
   color: string;
+  title: string;
 }) {
-  return <FontAwesome size={30} style={{}} {...props} />;
+  const name = props.name;
+  return (
+    <>
+      <FontAwesome size={18} style={{}} {...props} />
+      {name == "paw" && (
+        <Text color={theme.colors.dark[500]}>{props.title}</Text>
+      )}
+      {name != "paw" && <Text {...props}>{props.title}</Text>}
+    </>
+  );
 }

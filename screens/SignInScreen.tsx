@@ -31,6 +31,7 @@ export default function SignInScreen() {
           rounded="20px"
           colorScheme="rose"
           _text={{ color: "white" }}
+					onPress={() => navigation.navigate("Root", {screen: "SearchScreen"})}
         >
           To log in
         </Button>

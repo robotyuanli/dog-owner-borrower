@@ -19,7 +19,10 @@ declare global {
 export type OnboardingStackParamList = {
   WelcomeScreen: undefined;
   SignInScreen: undefined;
-  SignUpScreen: undefined;
+	SignUpScreen: undefined;
+	DogOwnerScreen: undefined;
+	DogBorrowerScreen: undefined;
+	ForgotPasswordScreen: undefined;
 };
 
 export type AuthenticatedStackParamList = {
@@ -33,12 +36,6 @@ export type AuthenticatedStackParamList = {
 
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
-  SignInScreen: undefined;
-  SignUpScreen: undefined;
-  SettingsScreen: undefined;
-  EditProfileScreen: undefined;
-  NotificationsScreen: undefined;
-  ChangePasswordScreen: undefined;
   Onboarding: undefined;
 };
 
@@ -46,9 +43,10 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, Screen>;
 
 export type RootTabParamList = {
-  SettingsScreen: undefined;
-  NotificationsScreen: undefined;
-  TabTwo: undefined;
+	SearchScreen: undefined;
+  MessageScreen: undefined;
+  FavouriteScreen: undefined;
+  PremiumScreen: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
