@@ -46,7 +46,7 @@ export type RootTabParamList = {
 	SearchScreen: undefined;
   MessageScreen: undefined;
   FavouriteScreen: undefined;
-  PremiumScreen: undefined;
+	PremiumScreen: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =

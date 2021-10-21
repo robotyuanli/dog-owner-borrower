@@ -1,17 +1,18 @@
 import {
   Box,
-  Button,
+  View,
   Text,
-  ScrollView,
-  Image,
-  HStack,
-  Heading,
-  theme,
+  Tabs,
 } from "native-base";
-import * as React from "react";
-
-import { ScreenBox } from "../components/ScreenBox";
+import React, { useState } from 'react';
+import {ScreenBox} from "../components/ScreenBox";
 
 export default function FavouriteScreen() {
-  return <ScreenBox backColor="dark.600"></ScreenBox>;
+	const [selectedTab, setSelectedTab] = useState(0);
+
+  return (
+		<Box>
+			
+		</Box>
+	);
 }

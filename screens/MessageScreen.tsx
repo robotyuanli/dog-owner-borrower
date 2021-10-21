@@ -1,17 +1,23 @@
-import {
-  Box,
-  Button,
-  Text,
-  ScrollView,
-  Image,
-  HStack,
-  Heading,
-  theme,
-} from "native-base";
-import * as React from "react";
-
+import React, { useState } from "react";
+import { Text } from "native-base";
+import { FlatList, StyleSheet, View } from 'react-native';
+import { MessageItem } from "../components/MessageItem";
 import { ScreenBox } from "../components/ScreenBox";
 
 export default function MessageScreen() {
-  return <ScreenBox backColor="dark.600"></ScreenBox>;
+	const [dataSource, setDataSource] = useState([]);
+
+  useState(() => {
+    let items = Array.apply(null, Array(5)).map((v, i) => {
+      return { id: i, name: "Emprunte Mon Toutou", message: "Borrow Mon Toutou Welcome to your mailbox", date: "Aug 31" };
+    });
+    setDataSource(items);
+	}, []);
+	
+  return (
+			<FlatList
+        data={dataSource}
+        renderItem={({item}) => <MessageItem item={item} />}
+      />
+	);
 }

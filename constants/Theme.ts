@@ -11,7 +11,10 @@ export const defaultTheme = extendTheme({
     secondary: {
       500: theme.colors.coolGray[700],
       700: theme.colors.coolGray[600],
-    }
+		},
+		background: theme.colors.dark[600],
+		text: theme.colors.white,
+		border: theme.colors.purple[100],
   },
   components: {
     Button: {

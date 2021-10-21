@@ -39,7 +39,7 @@ import { theme, useTheme, Text } from "native-base";
 
 export default function Navigation() {
   const MyTheme = {
-    ...DefaultTheme,
+    // ...DefaultTheme,
     colors: {
       background: theme.colors.dark[600],
       text: theme.colors.white,
@@ -49,7 +49,7 @@ export default function Navigation() {
   };
 
   return (
-    <NavigationContainer linking={LinkingConfiguration} theme={MyTheme}>
+    <NavigationContainer linking={LinkingConfiguration}>
       <RootNavigator />
     </NavigationContainer>
   );
@@ -152,7 +152,7 @@ function BottomTabNavigator() {
       initialRouteName="SearchScreen"
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#ff2643",
+					backgroundColor: "#ff2643",
         },
       }}
     >
@@ -161,6 +161,7 @@ function BottomTabNavigator() {
         component={SearchScreen}
         options={() => ({
           headerTitleAlign: "center",
+					headerTintColor: "white",
           headerTitle: () => <SearchTitle></SearchTitle>,
           headerLeft: () => <SearchLeft></SearchLeft>,
           headerRight: () => <SearchRight></SearchRight>,
@@ -180,7 +181,9 @@ function BottomTabNavigator() {
         name="MessageScreen"
         component={MessageScreen}
         options={{
-          headerShown: false,
+					title: "Messages",
+					headerTitleAlign: "center",
+					headerTintColor: "white",
           tabBarLabel: () => {
             return null;
           },
@@ -197,7 +200,9 @@ function BottomTabNavigator() {
         name="FavouriteScreen"
         component={FavouriteScreen}
         options={() => ({
-          headerShown: false,
+					title: "Favourite",
+					headerTitleAlign: "center",
+					headerTintColor: "white",
           tabBarLabel: () => {
             return null;
           },
@@ -213,8 +218,10 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name="PremiumScreen"
         component={PremiumScreen}
-        options={() => ({
-          headerShown: false,
+        options={({route}) => ({
+					title: "Premium",
+					headerTitleAlign: "center",
+					headerTintColor: "white",
           tabBarLabel: () => {
             return null;
           },
