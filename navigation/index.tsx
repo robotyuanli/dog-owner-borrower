@@ -25,6 +25,7 @@ import DogBorrowerScreen from "../screens/DogBorrowerScreen";
 import { SearchTitle } from "../components/SearchTitle";
 import { SearchLeft } from "../components/SearchLeft";
 import { SearchRight } from "../components/SearchRight";
+import { PremiumBack } from "../components/PremiumBack";
 
 import {
   OnboardingStackParamList,
@@ -152,7 +153,7 @@ function BottomTabNavigator() {
       initialRouteName="SearchScreen"
       screenOptions={{
         headerStyle: {
-					backgroundColor: "#ff2643",
+          backgroundColor: "#ff2643",
         },
       }}
     >
@@ -161,10 +162,10 @@ function BottomTabNavigator() {
         component={SearchScreen}
         options={() => ({
           headerTitleAlign: "center",
-					headerTintColor: "white",
-          headerTitle: () => <SearchTitle></SearchTitle>,
-          headerLeft: () => <SearchLeft></SearchLeft>,
-          headerRight: () => <SearchRight></SearchRight>,
+          headerTintColor: "white",
+          headerTitle: () => <SearchTitle />,
+          headerLeft: () => <SearchLeft />,
+          headerRight: () => <SearchRight />,
           tabBarLabel: () => {
             return null;
           },
@@ -181,9 +182,9 @@ function BottomTabNavigator() {
         name="MessageScreen"
         component={MessageScreen}
         options={{
-					title: "Messages",
-					headerTitleAlign: "center",
-					headerTintColor: "white",
+          title: "Messages",
+          headerTitleAlign: "center",
+          headerTintColor: "white",
           tabBarLabel: () => {
             return null;
           },
@@ -200,9 +201,13 @@ function BottomTabNavigator() {
         name="FavouriteScreen"
         component={FavouriteScreen}
         options={() => ({
-					title: "Favourite",
-					headerTitleAlign: "center",
-					headerTintColor: "white",
+          headerStyle: {
+            elevation: 0,
+            backgroundColor: "#ff2643",
+          },
+          title: "Favourite",
+          headerTitleAlign: "center",
+          headerTintColor: "white",
           tabBarLabel: () => {
             return null;
           },
@@ -218,10 +223,15 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name="PremiumScreen"
         component={PremiumScreen}
-        options={({route}) => ({
-					title: "Premium",
-					headerTitleAlign: "center",
-					headerTintColor: "white",
+        options={({ route }) => ({
+          headerStyle: {
+            elevation: 0,
+            backgroundColor: "#ff2643",
+          },
+          title: "Premium",
+          headerTitleAlign: "center",
+          headerTintColor: "white",
+          headerLeft: () => <PremiumBack />,
           tabBarLabel: () => {
             return null;
           },
