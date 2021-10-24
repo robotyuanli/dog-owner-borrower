@@ -1,12 +1,8 @@
 import { Box, ScrollView } from "native-base";
 import React from "react";
+import { ComponentProps} from "../types";
 
-interface ScreenBoxProps {
-	children?: JSX.Element | JSX.Element[];
-	backColor: string;
-}
-
-export const ScreenBox = (props: ScreenBoxProps) => {
+export const ScreenBox = (props: ComponentProps) => {
 
   return (
 		<Box

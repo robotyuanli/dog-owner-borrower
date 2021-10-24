@@ -22,10 +22,14 @@ import PremiumScreen from "../screens/PremiumScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 import DogOwnerScreen from "../screens/DogOwnerScreen";
 import DogBorrowerScreen from "../screens/DogBorrowerScreen";
+import EditProfileScreen from "../screens/EditProfileScreen";
+import NavbarScreen from "../screens/NavbarScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 import { SearchTitle } from "../components/SearchTitle";
 import { SearchLeft } from "../components/SearchLeft";
 import { SearchRight } from "../components/SearchRight";
 import { PremiumBack } from "../components/PremiumBack";
+import { NavbarRight } from "../components/NavbarRight";
 
 import {
   OnboardingStackParamList,
@@ -117,6 +121,36 @@ function AuthenticatedNavigator() {
         name="Root"
         component={BottomTabNavigator}
         options={{ headerShown: false }}
+      />
+      <AuthenticatedStack.Screen
+        name="NavbarScreen"
+				component={NavbarScreen}
+        options={{
+					title: "",
+					headerStyle: {
+						backgroundColor: "white"
+					},
+					headerTintColor: theme.colors.muted[400],
+          headerRight: () => <NavbarRight />,
+        }}
+      />
+      <AuthenticatedStack.Screen
+        name="ProfileScreen"
+        component={ProfileScreen}
+        options={{
+					title: "",
+					headerTintColor: "white",
+					headerStyle: {
+						backgroundColor: "#ff2643"
+					},
+        }}
+      />
+      <AuthenticatedStack.Screen
+        name="EditProfileScreen"
+        component={EditProfileScreen}
+        options={{
+          title: "Edit Profile",
+        }}
       />
     </AuthenticatedStack.Navigator>
   );
@@ -240,7 +274,7 @@ function BottomTabNavigator() {
               name="paw"
               title="Premium"
               color={
-                focused ? theme.colors.rose[500] : theme.colors.yellow[300]
+                focused ? theme.colors.rose[500] : theme.colors.dark[500]
               }
             />
           ),
@@ -261,11 +295,22 @@ function TabBarIcon(props: {
   const name = props.name;
   return (
     <>
-      <FontAwesome size={18} style={{}} {...props} />
-      {name == "paw" && (
-        <Text color={theme.colors.dark[500]}>{props.title}</Text>
+      {name != "paw" && (
+        <>
+          <FontAwesome size={18} style={{}} {...props} />
+        </>
       )}
-      {name != "paw" && <Text {...props}>{props.title}</Text>}
+      {name == "paw" && (
+        <>
+          <FontAwesome
+            size={18}
+            style={{}}
+            {...props}
+            color={theme.colors.yellow[300]}
+          />
+        </>
+      )}
+			<Text {...props}>{props.title}</Text>
     </>
   );
 }

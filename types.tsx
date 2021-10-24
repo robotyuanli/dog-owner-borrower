@@ -31,7 +31,9 @@ export type AuthenticatedStackParamList = {
   PushNotificationsSettingsScreen: undefined;
   ChangePasswordScreen: undefined;
   CustomizeTopicsScreen: undefined;
-  SuggestionScreen: undefined;
+	SuggestionScreen: undefined;
+	NavbarScreen: undefined;
+	ProfileScreen: undefined,
 };
 
 export type RootStackParamList = {
@@ -54,3 +56,13 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
     BottomTabScreenProps<RootTabParamList, Screen>,
     NativeStackScreenProps<RootStackParamList>
   >;
+
+export type ComponentProps = {
+		children?: JSX.Element | JSX.Element[];
+		backColor: string;
+}
+
+export type ItemProps = {
+		children?: JSX.Element | JSX.Element[];
+		item: any;
+};

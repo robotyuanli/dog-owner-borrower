@@ -12,13 +12,9 @@ import {
 } from "native-base";
 import { StyleSheet, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { ItemProps} from "../types";
 
-interface ScreenBoxProps {
-  children?: JSX.Element | JSX.Element[];
-  item: any;
-}
-
-export const PremiumItem = (props: ScreenBoxProps) => {
+export const PremiumItem = (props: ItemProps) => {
   const item = props.item;
 
   return (

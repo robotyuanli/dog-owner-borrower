@@ -9,66 +9,40 @@ import {
   Center,
   VStack,
 } from "native-base";
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, Pressable } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { ItemProps} from "../types";
+import { useNavigation } from "@react-navigation/core";
+import { MailHeartButton } from "./MailHeartButton";
 
-interface ScreenBoxProps {
-  children?: JSX.Element | JSX.Element[];
-  item: any;
-}
-
-export const ImageBox = (props: ScreenBoxProps) => {
-  const item = props.item;
+export const ImageBox = (props: ItemProps) => {
+	const item = props.item;
+	const navigation = useNavigation();
 
   return (
     <Box>
-      <HStack
-        backgroundColor="white"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Text ml="1" color="dark.400">
-          Clotilde, 2 km
-        </Text>
-        <Spacer></Spacer>
-        <FontAwesome name="star" color={theme.colors.orange[600]} />
-        <Text ml="1" mr="1" color="dark.400">
-          5
-        </Text>
-      </HStack>
-      <View>
-        <Image style={styles.imageThumbnail} source={{ uri: item.src }} />
-        <HStack style={styles.btnContainer}>
-          <Spacer></Spacer>
-          <VStack
-            width="10"
-            height="10"
-            borderRadius="300"
-            backgroundColor="#ff2643"
-          >
-            <Spacer></Spacer>
-            <Center>
-              <FontAwesome size={15} name="envelope" color="white" />
-            </Center>
-            <Spacer></Spacer>
-          </VStack>
-          <VStack
-            ml="3"
-            width="10"
-            height="10"
-            borderRadius="300"
-            backgroundColor="#ff2643"
-          >
-            <Spacer></Spacer>
-            <Center>
-              <FontAwesome size={15} name="heart" color="white" />
-            </Center>
-            <Spacer></Spacer>
-          </VStack>
-          <Spacer></Spacer>
-        </HStack>
-      </View>
-      <HStack
+			<Pressable
+				onPress={() => navigation.navigate("ProfileScreen")}
+			>
+				<HStack
+					backgroundColor="white"
+					justifyContent="center"
+					alignItems="center"
+				>
+					<Text ml="1" color="dark.400">
+						Clotilde, 2 km
+					</Text>
+					<Spacer></Spacer>
+					<FontAwesome name="star" color={theme.colors.orange[600]} />
+					<Text ml="1" mr="1" color="dark.400">
+						5
+					</Text>
+				</HStack>
+				<View>
+					<Image style={styles.imageThumbnail} source={{ uri: item.src }} />
+					<MailHeartButton />
+				</View>
+				<HStack
         backgroundColor="white"
         justifyContent="center"
         alignItems="center"
@@ -85,16 +59,13 @@ export const ImageBox = (props: ScreenBoxProps) => {
           Valide
         </Text>
       </HStack>
-    </Box>
+			</Pressable>
+		</Box>
   );
 };
 
 const styles = StyleSheet.create({
   imageThumbnail: {
     height: 200,
-  },
-  btnContainer: {
-    position: "absolute",
-    bottom: 10,
   },
 });
