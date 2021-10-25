@@ -23,6 +23,8 @@ import SignUpScreen from "../screens/SignUpScreen";
 import DogOwnerScreen from "../screens/DogOwnerScreen";
 import DogBorrowerScreen from "../screens/DogBorrowerScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
+import ContactScreen from "../screens/ContactScreen";
+import HelpScreen from "../screens/HelpScreen";
 import NavbarScreen from "../screens/NavbarScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import { SearchTitle } from "../components/SearchTitle";
@@ -150,6 +152,35 @@ function AuthenticatedNavigator() {
         component={EditProfileScreen}
         options={{
           title: "Edit Profile",
+					headerTintColor: "white",
+					headerTitleAlign: "center",
+					headerStyle: {
+						backgroundColor: "#ff2643"
+					},
+        }}
+      />
+      <AuthenticatedStack.Screen
+        name="ContactScreen"
+        component={ContactScreen}
+        options={{
+          title: "Contact us",
+					headerTintColor: "white",
+					headerTitleAlign: "center",
+					headerStyle: {
+						backgroundColor: "#ff2643"
+					},
+        }}
+      />
+      <AuthenticatedStack.Screen
+        name="HelpScreen"
+        component={HelpScreen}
+        options={{
+          title: "FAQ",
+					headerTintColor: "white",
+					headerTitleAlign: "center",
+					headerStyle: {
+						backgroundColor: "#ff2643"
+					},
         }}
       />
     </AuthenticatedStack.Navigator>

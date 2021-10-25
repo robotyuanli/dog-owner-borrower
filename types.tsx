@@ -34,6 +34,8 @@ export type AuthenticatedStackParamList = {
 	SuggestionScreen: undefined;
 	NavbarScreen: undefined;
 	ProfileScreen: undefined,
+	ContactScreen: undefined,
+	HelpScreen: undefined,
 };
 
 export type RootStackParamList = {

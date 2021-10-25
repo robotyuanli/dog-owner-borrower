@@ -19,15 +19,17 @@ const items = [
   },
   {
     icon: "question-circle",
-    name: "Help",
+    name: "FAQ",
     text: "Consult the online help",
-    color: theme.colors.secondary[700],
+		color: theme.colors.secondary[700],
+		path: "HelpScreen"
   },
   {
     icon: "comment",
     name: "Contact us",
     text: "Have a question? Contact us",
-    color: theme.colors.primary[500],
+		color: theme.colors.primary[500],
+		path: "ContactScreen",
   },
   {
     icon: "plus",
@@ -39,7 +41,8 @@ const items = [
     icon: "pencil",
     name: "Edit your profile",
     text: "Change your information",
-    color: theme.colors.rose[500],
+		color: theme.colors.rose[500],
+		path: "EditProfileScreen",
   },
   {
     icon: "gift",
