@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
-import { supabase } from "../supabase";
+import { firebase } from "../firebase/config";
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const AuthContext = createContext();
 
 // Provider component that wraps your app and makes auth object ...
 // ... available to any child component that calls useAuth().
-export function ProvideAuth({ children }) {
-  const auth = useProvideAuth();
+export function AuthProvider({ children }) {
+  const auth = useAuthProvider();
   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 }
 
@@ -17,44 +18,59 @@ export const useAuth = () => {
 };
 
 // Provider hook that creates auth object and handles state
-function useProvideAuth() {
+function useAuthProvider() {
   const [user, setUser] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(true);
+	const [token, setToken] = useState(null);
 
-  // Subscribe to user on mount
-  // Because this sets state in the callback it will cause any ...
-  // ... component that utilizes this hook to re-render with the ...
-  // ... latest auth object.
-  useEffect(() => {
+	useEffect(() => {
+		async function localStorageData(){
+				const storagedToken = await AsyncStorage.getItem('token')
 
-    if (supabase.auth.user()) {
-      setUser(supabase.auth.user());
-      setLoggedIn(true);
-      setLoading(false);
-    }
+				if (storagedToken) {
+						setToken(storagedToken)
+				}
+		}
+		localStorageData()
+	}, [])
 
-    let unsubscribe = supabase.auth.onAuthStateChange((event, session) => {
-      if (session) {
-        setUser(supabase.auth.user());
-        setLoggedIn(true);
-        setLoading(false);
+	function signIn(email, password){    
+		firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((response) => {
+        const uid = response.user.uid;
+				const usersRef = firebase.firestore().collection('users')
+        usersRef
+          .doc(uid)
+          .get()
+          .then(firestoreDocument => {
+            if (!firestoreDocument.exists) {
+              alert("User does not exist anymore.")
+              return;
+            }
+						setToken(uid)
+						AsyncStorage.setItem('token', uid)
+					})
+          .catch(error => {
+            alert(error)
+          });
+      })
+      .catch(error => {
+        alert(error)
+      })
+	}
 
-        return;
-      }
-
-      setLoggedIn(false);
-      setUser(null);
-      setLoading(false);
-    });
-
-    // Cleanup subscription on unmount
-    return () => unsubscribe();
-  }, []);
+	function signOut(){
+		AsyncStorage.clear().then( () => {
+			setToken(null)
+		})
+	}
 
   // Return the user object and auth methods
   return {
     user,
-    loggedIn,
+    token,
+		signIn,
+		signOut,
   };
 }

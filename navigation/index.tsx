@@ -20,8 +20,7 @@ import MessageScreen from "../screens/MessageScreen";
 import FavouriteScreen from "../screens/FavouriteScreen";
 import PremiumScreen from "../screens/PremiumScreen";
 import SignUpScreen from "../screens/SignUpScreen";
-import DogOwnerScreen from "../screens/DogOwnerScreen";
-import DogBorrowerScreen from "../screens/DogBorrowerScreen";
+import OwnerBorrowerScreen from "../screens/OwnerBorrowerScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import ContactScreen from "../screens/ContactScreen";
 import HelpScreen from "../screens/HelpScreen";
@@ -95,12 +94,8 @@ function OnboardingNavigator() {
         options={{ headerShown: false }}
       />
       <OnboardingStack.Screen
-        name="DogOwnerScreen"
-        component={DogOwnerScreen}
-      />
-      <OnboardingStack.Screen
-        name="DogBorrowerScreen"
-        component={DogBorrowerScreen}
+        name="OwnerBorrowerScreen"
+        component={OwnerBorrowerScreen}
       />
       <OnboardingStack.Screen
         name="SignInScreen"
@@ -189,19 +184,21 @@ function AuthenticatedNavigator() {
 
 function RootNavigator() {
   let auth = useAuth();
-  console.log(auth);
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Onboarding"
-        component={OnboardingNavigator}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Root"
-        component={AuthenticatedNavigator}
-        options={{ headerShown: false }}
-      />
+			{auth?.token == null ? (
+				<Stack.Screen
+					name="Onboarding"
+					component={OnboardingNavigator}
+					options={{ headerShown: false }}
+				/>
+			) : (
+				<Stack.Screen
+					name="Root"
+					component={AuthenticatedNavigator}
+					options={{ headerShown: false }}
+				/>
+			)}
     </Stack.Navigator>
   );
 }
@@ -293,7 +290,7 @@ function BottomTabNavigator() {
             elevation: 0,
             backgroundColor: "#ff2643",
           },
-          title: "Premium",
+          title: "Settings",
           headerTitleAlign: "center",
           headerTintColor: "white",
           headerLeft: () => <PremiumBack />,
@@ -302,8 +299,8 @@ function BottomTabNavigator() {
           },
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
-              name="paw"
-              title="Premium"
+              name="cog"
+              title="Settings"
               color={
                 focused ? theme.colors.rose[500] : theme.colors.dark[500]
               }
@@ -326,21 +323,7 @@ function TabBarIcon(props: {
   const name = props.name;
   return (
     <>
-      {name != "paw" && (
-        <>
-          <FontAwesome size={18} style={{}} {...props} />
-        </>
-      )}
-      {name == "paw" && (
-        <>
-          <FontAwesome
-            size={18}
-            style={{}}
-            {...props}
-            color={theme.colors.yellow[300]}
-          />
-        </>
-      )}
+      <FontAwesome size={18} style={{}} {...props} />
 			<Text {...props}>{props.title}</Text>
     </>
   );

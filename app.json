@@ -1,8 +1,9 @@
 {
   "expo": {
-    "name": "hideout",
-    "slug": "hideout",
-    "version": "1.0.0",
+    "name": "dog-owner-borrower",
+    "slug": "dog-owner-borrower",
+		"version": "1.0.0",
+		"owner": "dog-app",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",

@@ -20,8 +20,7 @@ export type OnboardingStackParamList = {
   WelcomeScreen: undefined;
   SignInScreen: undefined;
 	SignUpScreen: undefined;
-	DogOwnerScreen: undefined;
-	DogBorrowerScreen: undefined;
+	OwnerBorrowerScreen: undefined;
 	ForgotPasswordScreen: undefined;
 };
 

@@ -20,7 +20,7 @@ export default function SignUpScreen() {
             rounded="20px"
             colorScheme="rose"
             _text={{ color: "white" }}
-            onPress={() => navigation.navigate("DogOwnerScreen")}
+            onPress={() => navigation.navigate("OwnerBorrowerScreen", {type: "owner"})}
           >
             Doggie master
           </Button>
@@ -35,7 +35,7 @@ export default function SignUpScreen() {
             marginTop="70px"
             colorScheme="rose"
             _text={{ color: "white" }}
-            onPress={() => navigation.navigate("DogBorrowerScreen")}
+            onPress={() => navigation.navigate("OwnerBorrowerScreen", {type: "borrower"})}
           >
             Borrower
           </Button>

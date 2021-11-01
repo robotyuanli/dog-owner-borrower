@@ -6,12 +6,6 @@ import { PremiumItem } from "../components/PremiumItem";
 
 const items = [
   {
-    icon: "paw",
-    name: "Activate premium",
-    text: "adfeasdfa",
-    color: theme.colors.yellow[400],
-  },
-  {
     icon: "cog",
     name: "Settings",
     text: "Change your setting",
@@ -22,14 +16,12 @@ const items = [
     name: "FAQ",
     text: "Consult the online help",
 		color: theme.colors.secondary[700],
-		path: "HelpScreen"
   },
   {
     icon: "comment",
     name: "Contact us",
     text: "Have a question? Contact us",
 		color: theme.colors.primary[500],
-		path: "ContactScreen",
   },
   {
     icon: "plus",
@@ -42,7 +34,6 @@ const items = [
     name: "Edit your profile",
     text: "Change your information",
 		color: theme.colors.rose[500],
-		path: "EditProfileScreen",
   },
   {
     icon: "gift",
@@ -50,6 +41,12 @@ const items = [
     text: "Activate your advantages",
     color: theme.colors.primary[500],
   },
+	{
+		icon: "sign-out",
+		name: "Sign out",
+    text: "",
+    color: theme.colors.primary[500],
+	}
 ];
 
 export default function PremiumScreen() {

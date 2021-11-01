@@ -3,7 +3,11 @@ import 'dotenv/config';
 export default {
   "scheme": "myapp",
   extra: {
-    SUPERBASE_URL: process.env.SUPERBASE_URL,
-    SUPERBASE_ACCESS_TOKEN: process.env.SUPERBASE_ACCESS_TOKEN,
+    apiKey: process.env.API_KEY,
+		authDomain: process.env.AUTH_DOMAIN,
+		projectId: process.env.PROJECT_ID,
+		storageBucket: process.env.STORAGE_BUCKET,
+		messagingSenderId: process.env.MESSAGING_SENDER_ID,
+		appId: process.env.APP_ID
   },
 };
