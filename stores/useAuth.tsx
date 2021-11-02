@@ -20,14 +20,13 @@ export const useAuth = () => {
 // Provider hook that creates auth object and handles state
 function useAuthProvider() {
   const [user, setUser] = useState(null);
-	const [token, setToken] = useState(null);
 
 	useEffect(() => {
 		async function localStorageData(){
-				const storagedToken = await AsyncStorage.getItem('token')
+				const storagedUser = await AsyncStorage.getItem('token')
 
-				if (storagedToken) {
-						setToken(storagedToken)
+				if (storagedUser) {
+						setUser(storagedUser)
 				}
 		}
 		localStorageData()
@@ -43,13 +42,14 @@ function useAuthProvider() {
         usersRef
           .doc(uid)
           .get()
-          .then(firestoreDocument => {
-            if (!firestoreDocument.exists) {
+          .then(document => {
+            if (!document.exists) {
               alert("User does not exist anymore.")
               return;
             }
-						setToken(uid)
-						AsyncStorage.setItem('token', uid)
+						const userData = document.data();
+						setUser(userData)
+						AsyncStorage.setItem('user', userData)
 					})
           .catch(error => {
             alert(error)
@@ -62,14 +62,13 @@ function useAuthProvider() {
 
 	function signOut(){
 		AsyncStorage.clear().then( () => {
-			setToken(null)
+			setUser(null)
 		})
 	}
 
   // Return the user object and auth methods
   return {
     user,
-    token,
 		signIn,
 		signOut,
   };

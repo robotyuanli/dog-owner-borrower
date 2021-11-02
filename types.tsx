@@ -27,10 +27,6 @@ export type OnboardingStackParamList = {
 export type AuthenticatedStackParamList = {
   Root: undefined;
   EditProfileScreen: undefined;
-  PushNotificationsSettingsScreen: undefined;
-  ChangePasswordScreen: undefined;
-  CustomizeTopicsScreen: undefined;
-	SuggestionScreen: undefined;
 	NavbarScreen: undefined;
 	ProfileScreen: undefined,
 	ContactScreen: undefined,

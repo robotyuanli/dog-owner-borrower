@@ -186,7 +186,7 @@ function RootNavigator() {
   let auth = useAuth();
   return (
     <Stack.Navigator>
-			{auth?.token == null ? (
+			{auth?.user == null ? (
 				<Stack.Screen
 					name="Onboarding"
 					component={OnboardingNavigator}
