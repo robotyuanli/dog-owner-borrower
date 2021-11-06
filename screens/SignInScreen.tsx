@@ -36,7 +36,6 @@ export default function SignInScreen() {
 	}
 
 	const onHandleSignin = () => {
-		let newErrors = {...errors};
 		const { email, password } = formData;
 		if (!isEmpty() && Object.keys(errors).length === 0) {
 			auth.signIn(email, password);

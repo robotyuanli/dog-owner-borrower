@@ -57,6 +57,7 @@ export default function OwnerBorrowerScreen() {
 						postalCode,
 						suite,
 						type,
+						avatar: "https://firebasestorage.googleapis.com/v0/b/dog-owner-borrower.appspot.com/o/icon.png?alt=media&token=0ee4635c-8919-4849-b112-a6c4da010b45",
 					};
 				}
 				else {
@@ -68,6 +69,7 @@ export default function OwnerBorrowerScreen() {
 						postalCode,
 						suite,
 						type,
+						avatar: "https://firebasestorage.googleapis.com/v0/b/dog-owner-borrower.appspot.com/o/icon.png?alt=media&token=0ee4635c-8919-4849-b112-a6c4da010b45",
 					};
 				}
 			  const usersRef = firebase.firestore().collection("users");

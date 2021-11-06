@@ -1,92 +1,105 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   TextArea,
   VStack,
-  FormControl,
+  Avatar,
   Input,
   Button,
   Spacer,
-	View,
 	Center,
-	theme,
-	Image,
-	HStack,
 } from "native-base";
-import { StyleSheet, FlatList } from "react-native";
+import Constants from 'expo-constants'
+import * as ImagePicker from 'expo-image-picker'
+import * as ImageManipulator from 'expo-image-manipulator'
+import { Pressable } from "react-native";
 import { ScreenBox } from "../components/ScreenBox";
-import { FontAwesome } from "@expo/vector-icons";
+import { useAuth } from "../stores/useAuth";
+import { firebase } from "../firebase/config";
+import { useNavigation } from "@react-navigation/core";
 
 export default function EditProfileScreen() {
-	const [dataSource, setDataSource] = useState([]);
+	const auth = useAuth();
+	const user = auth.user;
+	const navigation = useNavigation();
+	const [progress, setProgress] = useState('')
+  const [avatar, setAvatar] = useState(user.avatar)
 
-  useState(() => {
-    let items = Array.apply(null, Array(6)).map((v, i) => {
-      return { id: i, src: "https://wallpaperaccess.com/full/317501.jpg" };
-    });
-    setDataSource(items);
-	}, []);
+	useEffect(() => {
+    setAvatar(user.avatar)
+  }, [])
+
+	const ImageChoiceAndUpload = async () => {
+    try {
+      if (Constants.platform.ios) {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
+        if (status !== 'granted') {
+          alert("Permission is required for use.");
+          return;
+        }
+      }
+      const result = await ImagePicker.launchImageLibraryAsync();
+        if (!result.cancelled) {
+          const actions = [];
+          actions.push({ resize: { width: 300 } });
+          const manipulatorResult = await ImageManipulator.manipulateAsync(
+            result.uri,
+            actions,
+            {
+              compress: 0.4,
+            },
+          );
+          const localUri = await fetch(manipulatorResult.uri);
+          const localBlob = await localUri.blob();
+          const filename = user.id + new Date().getTime()
+          const storageRef = firebase.storage().ref().child(`avatar/${user.id}/` + filename);
+          const putTask = storageRef.put(localBlob);
+          putTask.on('state_changed', (snapshot) => {
+            let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setProgress(parseInt(progress) + '%')
+          }, (error) => {
+            console.log(error);
+            alert("Upload failed.");
+          }, () => {
+            putTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+              setProgress('')
+              setAvatar(downloadURL)
+            })
+          })
+        }
+    } catch (e) {
+        console.log('error', e.message);
+        alert("The size may be too much.");
+    }
+  }
+
+	const profileUpdate = () => {
+    const data = {...user, avatar}
+    const userRef = firebase.firestore().collection('users').doc(user.id)
+    userRef.update(data)
+    navigation.goBack()
+  }
 	
   return (
 		<ScreenBox backColor="purple.100">
 			<VStack flex="1">
-				<HStack>
-					<View>
-						<Image
-							size={100}
-							resizeMode={"contain"}
-							borderRadius={500}
+				<Center>
+					<Pressable onPress={ImageChoiceAndUpload}>
+						<Avatar
+							size="xl"
 							source={{
-								uri: "https://wallpaperaccess.com/full/317501.jpg",
+								uri: avatar,
 							}}
-							alt="Alternate Text"
 						/>
-						<VStack
-							width="5"
-							height="5"
-							borderRadius="300"
-							backgroundColor="white"
-							style={styles.editButton}
-						>
-							<Spacer></Spacer>
-							<Center>
-								<FontAwesome size={10} name="pencil" color={theme.colors.rose[500]} />
-							</Center>
-							<Spacer></Spacer>
-						</VStack>
-					</View>
-					<VStack ml="5" flex="1">
-						<Input
-							type="text"
-							placeholder="Name"
-							fontSize={12}
-							placeholderTextColor="grey"
-						/>
-						<Input
-							mt="3"
-							type="text"
-							placeholder="Birthday"
-							fontSize={12}
-							placeholderTextColor="grey"
-						/>
-					</VStack>
-				</HStack>
-				<Text color="dark.400" mt="3">Your album</Text>
-				<FlatList
-					data={dataSource}
-					style={{ margin: 0, flexGrow: 0 }}
-					renderItem={({ item, index }) => (
-						<View
-							style={{
-								flex: 1,
-								marginRight: 8,
-								marginTop: 8,
-							}}
-						>
-							<Image style={styles.imageThumbnail} source={{ uri: item.src }} alt="album" />
-						</View>
-					)}
-					numColumns={3}
+					</Pressable>
+					<Text>{progress}</Text>
+				</Center>
+				<Input
+					mt="3"
+					type="text"
+					placeholder="Name"
+					fontSize={12}
+					placeholderTextColor="grey"
 				/>
 				<Text color="dark.400" mt="3">About your doggie</Text>
 				<TextArea
@@ -102,6 +115,7 @@ export default function EditProfileScreen() {
 					rounded="20px"
 					colorScheme="rose"
 					_text={{ color: "white" }}
+					onPress={profileUpdate}
 				>
 					Save
 				</Button>
@@ -109,14 +123,3 @@ export default function EditProfileScreen() {
 		</ScreenBox>
   );
 }
-
-const styles = StyleSheet.create({
-  editButton: {
-    position: "absolute",
-    top: 15,
-    right: 0,
-	},
-	imageThumbnail: {
-    height: 100,
-  },
-});
