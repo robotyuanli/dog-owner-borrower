@@ -2,6 +2,7 @@ import { Box, View, Image, theme } from "native-base";
 import * as React from "react";
 import { FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/core";
+import { useAuth } from "../stores/useAuth";
 import { PremiumItem } from "../components/PremiumItem";
 
 const items = [
@@ -50,6 +51,8 @@ const items = [
 ];
 
 export default function PremiumScreen() {
+	const auth = useAuth()
+	const avatar = auth.user.avatar
   const navigation = useNavigation();
   navigation.setOptions({ tabBarVisible: false });
 
@@ -67,7 +70,7 @@ export default function PremiumScreen() {
           resizeMode={"contain"}
           borderRadius={500}
           source={{
-            uri: "https://wallpaperaccess.com/full/317501.jpg",
+            uri: avatar,
           }}
           alt="Alternate Text"
         />

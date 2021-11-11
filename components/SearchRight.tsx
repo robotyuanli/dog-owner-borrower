@@ -2,7 +2,9 @@ import { theme, Box, Image, Spacer, VStack, Center } from "native-base";
 import React from "react";
 import { StyleSheet, Pressable } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { Avatar } from 'react-native-elements'
 import { useNavigation } from "@react-navigation/core";
+import { useAuth } from "../stores/useAuth";
 
 const styles = StyleSheet.create({
   editButton: {
@@ -14,17 +16,17 @@ const styles = StyleSheet.create({
 
 export const SearchRight = () => {
 	const navigation = useNavigation();
+	const auth = useAuth()
+	const avatar = auth.user.avatar
+	
   return (
     <Box mr="3">
 			<Pressable onPress={() => navigation.navigate("EditProfileScreen")}>
-				<Image
-					size={9}
-					resizeMode={"contain"}
-					borderRadius={500}
+				<Avatar
+					rounded
 					source={{
-						uri: "https://wallpaperaccess.com/full/317501.jpg",
+						uri: avatar,
 					}}
-					alt="Alternate Text"
 				/>
 				<VStack
 					width="4"

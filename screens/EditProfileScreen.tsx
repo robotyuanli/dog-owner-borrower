@@ -3,12 +3,12 @@ import {
   Text,
   TextArea,
   VStack,
-  Avatar,
   Input,
   Button,
   Spacer,
 	Center,
 } from "native-base";
+import { Avatar } from 'react-native-elements'
 import Constants from 'expo-constants'
 import * as ImagePicker from 'expo-image-picker'
 import * as ImageManipulator from 'expo-image-manipulator'
@@ -19,14 +19,17 @@ import { firebase } from "../firebase/config";
 import { useNavigation } from "@react-navigation/core";
 
 export default function EditProfileScreen() {
-	const auth = useAuth();
-	const user = auth.user;
+	const auth = useAuth()
+	const user = auth.user
 	const navigation = useNavigation();
 	const [progress, setProgress] = useState('')
   const [avatar, setAvatar] = useState(user.avatar)
+	const [name, setName] = useState(user.name)
+	const [doggieContent, setDoggieContent] = useState(user.doggieContent)
 
 	useEffect(() => {
     setAvatar(user.avatar)
+		setDoggieContent(user.doggieContent)
   }, [])
 
 	const ImageChoiceAndUpload = async () => {
@@ -74,9 +77,10 @@ export default function EditProfileScreen() {
   }
 
 	const profileUpdate = () => {
-    const data = {...user, avatar}
+    const data = {...user, avatar, name, doggieContent}
     const userRef = firebase.firestore().collection('users').doc(user.id)
     userRef.update(data)
+		auth.updateAuth(data)
     navigation.goBack()
   }
 	
@@ -84,14 +88,12 @@ export default function EditProfileScreen() {
 		<ScreenBox backColor="purple.100">
 			<VStack flex="1">
 				<Center>
-					<Pressable onPress={ImageChoiceAndUpload}>
-						<Avatar
-							size="xl"
-							source={{
-								uri: avatar,
-							}}
-						/>
-					</Pressable>
+					<Avatar
+						size="xlarge"
+						rounded
+						onPress={ImageChoiceAndUpload}
+						source={{ uri: avatar }}
+					/>
 					<Text>{progress}</Text>
 				</Center>
 				<Input
@@ -99,12 +101,16 @@ export default function EditProfileScreen() {
 					type="text"
 					placeholder="Name"
 					fontSize={12}
+					value={name}
+					onChangeText={(value) => setName(value)}
 					placeholderTextColor="grey"
 				/>
 				<Text color="dark.400" mt="3">About your doggie</Text>
 				<TextArea
 					h={20}
 					fontSize={15}
+					value={doggieContent}
+					onChangeText={(value) => setDoggieContent(value)}
 					placeholderTextColor="grey"
 				/>
 				<Spacer></Spacer>

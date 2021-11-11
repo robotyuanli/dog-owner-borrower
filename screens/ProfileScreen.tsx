@@ -3,15 +3,18 @@ import { StyleSheet, Image, Pressable } from "react-native";
 import { Text, Box, HStack, Spacer, theme, Slider, View, VStack } from "native-base";
 import { FontAwesome } from "@expo/vector-icons";
 import MapView from 'react-native-maps';
-import { width } from "styled-system";
+import { useRoute } from "@react-navigation/core";
 import { MailHeartButton } from "../components/MailHeartButton";
 
 export default function ProfileScreen() {
+	const route = useRoute()
+	const user = route.params.user
+
   return (
 		<Box backgroundColor="purple.100" h="100%">
-			<Image style={styles.imageThumbnail} source={{ uri: "https://wallpaperaccess.com/full/317501.jpg" }} />
+			<Image style={styles.imageThumbnail} source={{ uri: user.avatar }} />
 			<View p="5">
-				<Text color="dark.400" fontSize={18}>Sophie Raglan</Text>
+				<Text color="dark.400" fontSize={18}>{user.name}</Text>
 				<HStack mt="3" mb="3" justifyContent="center" alignItems="center">
 					<FontAwesome name="paw" color={theme.colors.yellow[400]} />
 					<Text color="dark.400" ml="1">Premium</Text>

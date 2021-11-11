@@ -20,46 +20,48 @@ export const ImageBox = (props: ItemProps) => {
 	const navigation = useNavigation();
 
   return (
-    <Box>
-			<Pressable
-				onPress={() => navigation.navigate("ProfileScreen")}
-			>
-				<HStack
+    <Box style={styles.imageBox}>
+			{item?.name != "empty" && 
+				<Pressable
+					onPress={() => navigation.navigate("ProfileScreen", {user: item.data()})}
+				>
+					<HStack
+						backgroundColor="white"
+						justifyContent="center"
+						alignItems="center"
+					>
+						<Text ml="1" color="dark.400">
+							Clotilde, 2 km
+						</Text>
+						<Spacer></Spacer>
+						<FontAwesome name="star" color={theme.colors.orange[600]} />
+						<Text ml="1" mr="1" color="dark.400">
+							5
+						</Text>
+					</HStack>
+					<View>
+						<Image style={styles.imageThumbnail} source={{ uri: item.data().avatar }} />
+						<MailHeartButton user={item.data()}/>
+					</View>
+					<HStack
 					backgroundColor="white"
 					justifyContent="center"
 					alignItems="center"
 				>
-					<Text ml="1" color="dark.400">
-						Clotilde, 2 km
+					<View ml="1">
+						<FontAwesome name="paw" color={theme.colors.yellow[300]} />
+					</View>
+					<Text ml="1" color="yellow.300">
+						Premium
 					</Text>
 					<Spacer></Spacer>
-					<FontAwesome name="star" color={theme.colors.orange[600]} />
+					<FontAwesome name="upload" color={theme.colors.green[600]} />
 					<Text ml="1" mr="1" color="dark.400">
-						5
+						Valide
 					</Text>
 				</HStack>
-				<View>
-					<Image style={styles.imageThumbnail} source={{ uri: item.src }} />
-					<MailHeartButton />
-				</View>
-				<HStack
-        backgroundColor="white"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <View ml="1">
-          <FontAwesome name="paw" color={theme.colors.yellow[300]} />
-        </View>
-        <Text ml="1" color="yellow.300">
-          Premium
-        </Text>
-        <Spacer></Spacer>
-        <FontAwesome name="upload" color={theme.colors.green[600]} />
-        <Text ml="1" mr="1" color="dark.400">
-          Valide
-        </Text>
-      </HStack>
-			</Pressable>
+				</Pressable>
+			}
 		</Box>
   );
 };
@@ -68,4 +70,6 @@ const styles = StyleSheet.create({
   imageThumbnail: {
     height: 200,
   },
+	imageBox: {
+	},
 });

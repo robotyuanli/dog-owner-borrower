@@ -66,10 +66,15 @@ function useAuthProvider() {
 		})
 	}
 
+	function updateAuth(user: any) {
+		setUser(user)
+	}
+
   // Return the user object and auth methods
   return {
     user,
 		signIn,
 		signOut,
+		updateAuth,
   };
 }
