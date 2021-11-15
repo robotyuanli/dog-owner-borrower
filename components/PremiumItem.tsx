@@ -47,7 +47,7 @@ export const PremiumItem = (props: ItemProps) => {
   return (
     <Box backgroundColor="white" m="5" mb="0">
       <Pressable onPress={() => onHandleItem(item.name)}>
-        <HStack justifyContent="center" alignItems="center">
+        <HStack justifyContent="center" alignItems="center" mb="3">
           <FontAwesome size={25} name={item.icon} color={item.color} />
           <VStack ml="5">
             <Text
@@ -63,7 +63,7 @@ export const PremiumItem = (props: ItemProps) => {
           </VStack>
           <Spacer></Spacer>
         </HStack>
-        {item.icon != "sign-out" && <Divider mt="3" w="100%" />}
+        {item.icon != "sign-out" && <Divider w="100%" />}
       </Pressable>
     </Box>
   );

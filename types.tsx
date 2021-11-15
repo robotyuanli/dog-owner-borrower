@@ -31,6 +31,7 @@ export type AuthenticatedStackParamList = {
 	ProfileScreen: undefined,
 	ContactScreen: undefined,
 	HelpScreen: undefined,
+	ChatScreen: undefined,
 };
 
 export type RootStackParamList = {

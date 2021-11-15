@@ -58,7 +58,7 @@ export default function OwnerBorrowerScreen() {
 						suite,
 						type,
 						doggieContent: '',
-						avatar: "https://firebasestorage.googleapis.com/v0/b/dog-owner-borrower.appspot.com/o/icon.png?alt=media&token=0ee4635c-8919-4849-b112-a6c4da010b45",
+						avatar: "https://firebasestorage.googleapis.com/v0/b/dog-owner-borrower.appspot.com/o/icon.png?alt=media&token=2de6e641-7f87-4c50-bb71-fce9b0f888ec",
 					};
 				}
 				else {

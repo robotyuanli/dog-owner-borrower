@@ -54,59 +54,59 @@ export default function SignInScreen() {
 	}
 
   return (
-    <ScreenBox backColor="purple.100">
-      <VStack space={3} h="100%">
-        <Spacer></Spacer>
-        <Center mb="10">
-          <Text color="dark.500" fontSize={20} fontWeight="bold">
-            To log in
-          </Text>
-        </Center>
+		<ScreenBox backColor="purple.100">
+			<VStack space={3} h="100%">
+				<Spacer></Spacer>
+				<Center mb="10">
+					<Text color="dark.500" fontSize={20} fontWeight="bold">
+						To log in
+					</Text>
+				</Center>
 				<FormControl isRequired isInvalid={'email' in errors}>
-        	<Input placeholder="Your email" onChangeText={(value) => isValidation('email', value)} />
+					<Input placeholder="Your email" onChangeText={(value) => isValidation('email', value)} />
 				</FormControl>
 				<FormControl isRequired isInvalid={'password' in errors}>
-        	<Input type="password" placeholder="Password" onChangeText={(value) => isValidation('password', value)} />
+					<Input type="password" placeholder="Password" onChangeText={(value) => isValidation('password', value)} />
 				</FormControl>
 
-        <Button
-          mt="5"
-          size="lg"
-          rounded="20px"
-          colorScheme="rose"
-          _text={{ color: "white" }}
+				<Button
+					mt="5"
+					size="lg"
+					rounded="20px"
+					colorScheme="rose"
+					_text={{ color: "white" }}
 					onPress={onHandleSignin}
-        >
-          To log in
-        </Button>
-        <Spacer></Spacer>
-        <Center mb="5">
-          <Text
-            mb="5"
-            color="dark.500"
-            fontSize={15}
-            fontWeight="bold"
-            onPress={() => navigation.navigate("ForgotPasswordScreen")}
-          >
-            Forgot your password ?
-          </Text>
-          <Text
-            mb="5"
-            color="dark.500"
-            fontSize={15}
-            fontWeight="bold"
-            onPress={() => navigation.navigate("SignUpScreen")}
-          >
-            Not registered?
-          </Text>
-          <Image
-            alt="dog"
-            size="30"
-            resizeMode={"contain"}
-            source={require("../assets/images/dog.png")}
-          />
-        </Center>
-      </VStack>
-    </ScreenBox>
+				>
+					To log in
+				</Button>
+				<Spacer></Spacer>
+				<Center mb="5">
+					<Text
+						mb="5"
+						color="dark.500"
+						fontSize={15}
+						fontWeight="bold"
+						onPress={() => navigation.navigate("ForgotPasswordScreen")}
+					>
+						Forgot your password ?
+					</Text>
+					<Text
+						mb="5"
+						color="dark.500"
+						fontSize={15}
+						fontWeight="bold"
+						onPress={() => navigation.navigate("SignUpScreen")}
+					>
+						Not registered?
+					</Text>
+					<Image
+						alt="dog"
+						size="30"
+						resizeMode={"contain"}
+						source={require("../assets/images/dog.png")}
+					/>
+				</Center>
+			</VStack>
+		</ScreenBox>
   );
 }

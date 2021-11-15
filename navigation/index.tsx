@@ -24,6 +24,7 @@ import OwnerBorrowerScreen from "../screens/OwnerBorrowerScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import ContactScreen from "../screens/ContactScreen";
 import HelpScreen from "../screens/HelpScreen";
+import ChatScreen from "../screens/ChatScreen";
 import NavbarScreen from "../screens/NavbarScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import { SearchTitle } from "../components/SearchTitle";
@@ -171,6 +172,18 @@ function AuthenticatedNavigator() {
         component={HelpScreen}
         options={{
           title: "FAQ",
+					headerTintColor: "white",
+					headerTitleAlign: "center",
+					headerStyle: {
+						backgroundColor: "#ff2643"
+					},
+        }}
+      />
+      <AuthenticatedStack.Screen
+        name="ChatScreen"
+        component={ChatScreen}
+        options={{
+          title: "",
 					headerTintColor: "white",
 					headerTitleAlign: "center",
 					headerStyle: {

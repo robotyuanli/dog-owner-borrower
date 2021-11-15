@@ -4,6 +4,7 @@ import { FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { useAuth } from "../stores/useAuth";
 import { PremiumItem } from "../components/PremiumItem";
+import { Avatar } from 'react-native-elements'
 
 const items = [
   {
@@ -65,15 +66,13 @@ export default function PremiumScreen() {
         alignItems="center"
         mt="-1"
       >
-        <Image
-          size={12}
-          resizeMode={"contain"}
-          borderRadius={500}
-          source={{
-            uri: avatar,
-          }}
-          alt="Alternate Text"
-        />
+        <Avatar
+					rounded
+					source={{
+						uri: avatar,
+					}}
+					size="medium"
+				/>
       </View>
       <FlatList
         data={items}

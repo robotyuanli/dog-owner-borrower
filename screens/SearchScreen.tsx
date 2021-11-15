@@ -20,7 +20,6 @@ const SearchScreen = () => {
 				if(res.length % 2 == 1) {
 					res.push({name: "empty"})
 				}
-				console.log('bbbbbbb', res.length)
 				setUsers(res)
 			})
   }, []);
@@ -44,11 +43,6 @@ const SearchScreen = () => {
         )}
         numColumns={2}
       />
-			{/* <SimpleGrid style={styles.gridContainer} columns={2} spacing={2}>
-				{users.map((item) => {
-					return <ImageBox item={item}></ImageBox>;
-				})}
-			</SimpleGrid> */}
     </Box>
   );
 };
