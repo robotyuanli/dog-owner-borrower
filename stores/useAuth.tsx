@@ -20,14 +20,21 @@ export const useAuth = () => {
 // Provider hook that creates auth object and handles state
 function useAuthProvider() {
   const [user, setUser] = useState(null);
+  const [distance, setDistance] = useState(10)
+	const [weekends, setWeekends] = useState(false)
+	const [weekDay, setWeekDay] = useState(false)
+	const [weekNight, setWeekNight] = useState(false)
+	const [walk, setWalk] = useState(false)
+	const [dayNight, setDayNight] = useState(false)
+	const [week, setWeek] = useState(false)
 
 	useEffect(() => {
 		async function localStorageData(){
-				const storagedUser = await AsyncStorage.getItem('token')
+				// const storagedUser = await AsyncStorage.getItem("user")
 
-				if (storagedUser) {
-						setUser(storagedUser)
-				}
+				// if (storagedUser) {
+				// 		setUser(storagedUser)
+				// }
 		}
 		localStorageData()
 	}, [])
@@ -49,7 +56,7 @@ function useAuthProvider() {
             }
 						const userData = document.data();
 						setUser(userData)
-						AsyncStorage.setItem('user', userData)
+						// AsyncStorage.setItem("user", userData)
 					})
           .catch(error => {
             alert(error)
@@ -66,6 +73,16 @@ function useAuthProvider() {
 		})
 	}
 
+	function resetFilters() {
+		setDistance(10)
+		setWeekends(false)
+		setWeekDay(false)
+		setWeekNight(false)
+		setWalk(false)
+		setDayNight(false)
+		setWeek(false)
+	}
+
 	function updateAuth(user: any) {
 		setUser(user)
 	}
@@ -73,8 +90,17 @@ function useAuthProvider() {
   // Return the user object and auth methods
   return {
     user,
+		distance,
+		weekends, 
+		weekDay,
+		weekNight,
+		walk,
+		dayNight,
+		week,
 		signIn,
 		signOut,
+		setWeekends,
+		resetFilters,
 		updateAuth,
   };
 }

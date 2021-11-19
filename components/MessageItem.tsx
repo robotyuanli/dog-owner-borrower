@@ -11,9 +11,8 @@ import {
 } from "native-base";
 import { StyleSheet, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { ItemProps} from "../types";
 
-export const MessageItem = (props: ItemProps) => {
+export const MessageItem = (props: any) => {
   const item = props.item;
 
   return (

@@ -182,14 +182,14 @@ function AuthenticatedNavigator() {
       <AuthenticatedStack.Screen
         name="ChatScreen"
         component={ChatScreen}
-        options={{
-          title: "",
+        options={({ route }) => ({
+          title: route.params.user.name,
 					headerTintColor: "white",
 					headerTitleAlign: "center",
 					headerStyle: {
 						backgroundColor: "#ff2643"
 					},
-        }}
+        })}
       />
     </AuthenticatedStack.Navigator>
   );

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Box, SimpleGrid } from "native-base";
+import { Box } from "native-base";
 import { ImageBox } from "../components/ImageBox";
 import { firebase } from "../firebase/config";
 import { useAuth } from "../stores/useAuth";
 import { StyleSheet, View, FlatList } from "react-native";
+import api from '../api'
 
 const SearchScreen = () => {
 	const auth = useAuth()
@@ -11,10 +12,8 @@ const SearchScreen = () => {
 	const [users, setUsers] = useState()
 
   useEffect(() => {
-		firebase.firestore()
-			.collection('users')
-			.get()
-			.then(snapshot => {
+		api.db.collection('users')
+			.onSnapshot(snapshot => {
 				const docs = snapshot.docs
 				const res = docs.filter(doc => doc.data().id.localeCompare(user.id) != 0)
 				if(res.length % 2 == 1) {

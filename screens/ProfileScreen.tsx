@@ -38,7 +38,7 @@ export default function ProfileScreen() {
 					longitudeDelta: 0.0421,
 				}}
 			/>
-			<MailHeartButton />
+			<MailHeartButton user={user} />
 		</Box>
 	);
 }

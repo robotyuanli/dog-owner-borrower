@@ -1,9 +1,10 @@
 
 import React, { useState, useCallback, useEffect } from "react";
-import { FlatList, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { useAuth } from "../stores/useAuth";
 import { useRoute } from "@react-navigation/core";
+import { firebase } from "../firebase/config";
 import api from '../api'
 
 export default function ChatScreen(props: any) {
@@ -13,24 +14,44 @@ export default function ChatScreen(props: any) {
 	const route = useRoute()
 	const receiver = route.params.user
 
-	useEffect(() => {
-		const unsubscribe = api.db.collection('chats')
+	const createRoom = async () => {
+		const res = await api.db.collection('rooms')
 			.where('senderId', '==', user.id)
 			.where('receiverId', '==', receiver.id)
-			.orderBy('createdAt', 'desc')
-			.onSnapshot(snapshot => setMessages(
-				snapshot.docs.map(doc => ({
-						_id: doc.data()._id,
-						createdAt: doc.data().createdAt.toDate(),
-						text: doc.data().text,
-						user: doc.data().user,
-				}))
-		));
+			.get();
+		if(res.docs.length === 0) {
+			firebase.firestore().collection('rooms')
+				.add({ senderId: user.id, receiverId: receiver.id})
+				.then((docRef) => {
+					return docRef.id
+				})
+		}
+		else {
+			return res.docs[0].id
+		}
+	}
+
+	useEffect(() => {
+		async function fetchData() {
+			this.roomId = await createRoom();
+			api.db.collection('chats')
+				.where('roomId', '==', this.roomId)
+				.orderBy('createdAt', 'desc')
+				.onSnapshot(snapshot => setMessages(
+					snapshot.docs.map(doc => ({
+							_id: doc.data()._id,
+							createdAt: doc.data().createdAt.toDate(),
+							text: doc.data().text,
+							user: doc.data().user,
+					}))
+			));
+		}
+		fetchData()
   }, [])
 
 	const onSend = useCallback((messages = []) => {
 		setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-    api.send(messages, user, receiver)
+		api.send(messages, this.roomId)
   }, [])
 
   return (

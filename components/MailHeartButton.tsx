@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { VStack, Center, Spacer, HStack, Image, Box } from 'native-base';
 import { StyleSheet, Pressable } from "react-native";
-import { firebase } from "../firebase/config";
 import { useAuth } from "../stores/useAuth";
 import api from '../api';
 import { useNavigation } from "@react-navigation/core";
@@ -12,17 +11,27 @@ import Envelope from '../assets/svgs/envelope.svg';
 export function MailHeartButton(props: any) {
 	const auth = useAuth()
 	const user = auth.user
-	const navigation = useNavigation();
-	const [heartIcon, setHeartIcon] = useState(false)
+	const navigation = useNavigation()
+	const [isLove, setIsLove] = useState(false)
+
+	useEffect(() => {
+		if(user.favourites != undefined) {
+			for(let i = 0 ; i < user.favourites.length ; i ++) {
+				if(user.favourites[i] === props.user.id) {
+					setIsLove(true)
+					break;
+				}
+			}
+		}
+	}, [])
 
 	const onFavourite = () => {
-		if(!heartIcon) {
-			setHeartIcon(true)
-			let data;
+		let data;
+		if(!isLove) {
 			if(user.favourites != undefined) {
 				data = {
 					id: user.id,
-					newProfile: {...user, favourites: [user.favourites, props.user.id]}
+					newProfile: {...user, favourites: [...user.favourites, props.user.id]}
 				};
 			}
 			else {
@@ -31,11 +40,22 @@ export function MailHeartButton(props: any) {
 					newProfile: {...user, favourites: [props.user.id]}
 				};
 			}
-			api.setFavourite(data);
 		}
 		else {
-			setHeartIcon(false)
+			for(let i = 0 ; i < user.favourites.length ; i ++) {
+				if(user.favourites[i] === props.user.id) {
+					user.favourites.splice(i, 1)
+					break;
+				}
+			}
+			data = {
+				id: user.id,
+				newProfile: user
+			};
 		}
+		setIsLove(!isLove)
+		auth.updateAuth(data.newProfile)
+		api.setFavourite(data);
   }
 
 	const onEmail = () => {
@@ -69,7 +89,7 @@ export function MailHeartButton(props: any) {
 				>
 						<Spacer></Spacer>
 						<Center>
-							<Heart width={15} height={15}/>
+							{isLove ? <HeartSolid width={15} height={15}/> : <Heart width={15} height={15}/>  }
 						</Center>
 						<Spacer></Spacer>
 				</VStack>

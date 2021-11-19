@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, Box, HStack, Spacer, Divider, Slider, Button, VStack, View } from "native-base";
 import { NavbarItem } from "../components/NavbarItem";
+import { useAuth } from "../stores/useAuth";
 
-export default function NavbarScreen() {
+const NavbarScreen = () => {
+	const auth = useAuth()
+	const {distance} = auth
+
   return (
 			<Box p="5" backgroundColor="white" h="100%">
 				<VStack h="100%">
@@ -10,7 +14,7 @@ export default function NavbarScreen() {
 						<HStack>
 							<Text color="dark.300" fontSize={16}>Search distance:</Text>
 							<Spacer></Spacer>
-							<Text color="rose.500">10 km</Text>
+							<Text color="rose.500">{distance} km</Text>
 						</HStack>
 						<Slider
 							mt="5"
@@ -49,4 +53,6 @@ export default function NavbarScreen() {
 				</VStack>
 			</Box>
 	);
-}
+};
+export default NavbarScreen;
+

@@ -11,11 +11,10 @@ import {
 } from "native-base";
 import { StyleSheet, Image, Pressable } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { ItemProps} from "../types";
 import { useNavigation } from "@react-navigation/core";
 import { MailHeartButton } from "./MailHeartButton";
 
-export const ImageBox = (props: ItemProps) => {
+export const ImageBox = (props: any) => {
 	const item = props.item;
 	const navigation = useNavigation();
 

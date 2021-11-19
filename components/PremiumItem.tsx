@@ -12,11 +12,10 @@ import {
 } from "native-base";
 import { StyleSheet, Image, Pressable } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { ItemProps } from "../types";
 import { useNavigation } from "@react-navigation/core";
 import { useAuth } from "../stores/useAuth";
 
-export const PremiumItem = (props: ItemProps) => {
+export const PremiumItem = (props: any) => {
 	const auth = useAuth();
   const item = props.item;
   const navigation = useNavigation();
