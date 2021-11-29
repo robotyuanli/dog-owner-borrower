@@ -19,15 +19,22 @@ export default function ChatScreen(props: any) {
 			.where('senderId', '==', user.id)
 			.where('receiverId', '==', receiver.id)
 			.get();
-		if(res.docs.length === 0) {
+		const res2 = await api.db.collection('rooms')
+			.where('senderId', '==', receiver.id)
+			.where('receiverId', '==', user.id)
+			.get();
+		if(res.docs.length === 0 && res2.docs.length === 0) {
 			firebase.firestore().collection('rooms')
 				.add({ senderId: user.id, receiverId: receiver.id})
 				.then((docRef) => {
 					return docRef.id
 				})
 		}
-		else {
+		else if(res.docs.length > 0) {
 			return res.docs[0].id
+		}
+		else if(res2.docs.length > 0) {
+			return res2.docs[0].id
 		}
 	}
 
