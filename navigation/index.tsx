@@ -14,14 +14,19 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import SignInScreen from "../screens/SignInScreen";
+import SignUpScreen from "../screens/SignUpScreen";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 import SearchScreen from "../screens/SearchScreen";
 import MessageScreen from "../screens/MessageScreen";
 import FavouriteScreen from "../screens/FavouriteScreen";
 import PremiumScreen from "../screens/PremiumScreen";
-import SignUpScreen from "../screens/SignUpScreen";
+import UserTypeScreen from "../screens/UserTypeScreen";
 import OwnerBorrowerScreen from "../screens/OwnerBorrowerScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
+import EditDogProfileScreen from "../screens/EditDogProfileScreen";
+import EditOwnerProfileScreen from "../screens/EditOwnerProfileScreen";
+import AllSetScreen from "../screens/AllSetScreen";
+import EditBorrowerProfileScreen from "../screens/EditBorrowerProfileScreen";
 import ContactScreen from "../screens/ContactScreen";
 import HelpScreen from "../screens/HelpScreen";
 import ChatScreen from "../screens/ChatScreen";
@@ -90,9 +95,14 @@ function OnboardingNavigator() {
         options={{ headerShown: false }}
       />
       <OnboardingStack.Screen
-        name="SignUpScreen"
-        component={SignUpScreen}
-        options={{ headerShown: false }}
+        name="UserTypeScreen"
+        component={UserTypeScreen}
+				options={{
+					title: "",
+					headerStyle: {
+						backgroundColor: "white"
+					},
+        }}
       />
       <OnboardingStack.Screen
         name="OwnerBorrowerScreen"
@@ -101,13 +111,53 @@ function OnboardingNavigator() {
       <OnboardingStack.Screen
         name="SignInScreen"
         component={SignInScreen}
-        options={{ headerShown: false }}
+				options={{
+					title: "",
+					headerStyle: {
+						backgroundColor: "white"
+					},
+        }}
+      />
+      <OnboardingStack.Screen
+        name="SignUpScreen"
+        component={SignUpScreen}
+				options={{
+					title: "",
+					headerStyle: {
+						backgroundColor: "white"
+					},
+        }}
       />
       <OnboardingStack.Screen
         name="ForgotPasswordScreen"
         component={ForgotPasswordScreen}
+				options={{
+					title: "",
+					headerStyle: {
+						backgroundColor: "white"
+					},
+        }}
+      />
+      <OnboardingStack.Screen
+        name="EditDogProfileScreen"
+        component={EditDogProfileScreen}
         options={{ headerShown: false }}
       />
+      <OnboardingStack.Screen
+        name="EditOwnerProfileScreen"
+        component={EditOwnerProfileScreen}
+        options={{ headerShown: false }}
+      />
+      <OnboardingStack.Screen
+        name="EditBorrowerProfileScreen"
+        component={EditBorrowerProfileScreen}
+        options={{ headerShown: false }}
+      />
+      <OnboardingStack.Screen
+        name="AllSetScreen"
+        component={AllSetScreen}
+        options={{ headerShown: false }}
+      />			
     </OnboardingStack.Navigator>
   );
 }

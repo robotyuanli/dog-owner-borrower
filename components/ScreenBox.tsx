@@ -11,7 +11,7 @@ export const ScreenBox = (props: ComponentProps) => {
 			safeArea
 			px="6"
 			py="0"
-			backgroundColor={props.backColor}
+			backgroundColor="white"
 		>
 			{props.children}
 		</Box>

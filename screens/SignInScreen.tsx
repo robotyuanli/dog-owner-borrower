@@ -1,112 +1,149 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
   VStack,
-  Input,
-  Button,
   Center,
-  Image,
-  Spacer,
   Text,
-	FormControl,
+	HStack,
+	View,
 } from "native-base";
 import { useNavigation } from "@react-navigation/core";
 import { ScreenBox } from "../components/ScreenBox";
+import { PoppinsText } from "../components/PoppinsText";
+import { ImageButton } from "../components/ImageButton";
+import GradientButton from "react-native-gradient-buttons";
+import { StyleSheet } from "react-native";
 import { useAuth } from "../stores/useAuth";
+import { FloatingLabelInput, setGlobalStyles  } from 'react-native-floating-label-input';
+
+setGlobalStyles.containerStyles = {
+  backgroundColor: '#F0F0F0',
+	paddingHorizontal: 10,
+	borderRadius: 8,
+	paddingVertical: 10,
+	height: 58,
+};
+setGlobalStyles.customLabelStyles = {
+  colorFocused: '#979EA6',
+};
+setGlobalStyles.inputStyles = {
+  color: '#2B2B2B',
+	paddingHorizontal: 6,
+};
 
 export default function SignInScreen() {
 	const auth = useAuth();
   const navigation = useNavigation();
-	const [formData, setData] = useState({});
-  const [errors, setErrors] = useState({});
-
-	const isEmpty = (): boolean => {
-		let flag = false;
-		let newErrors = {...errors};
-		const { email, password } = formData;
-		if (email === undefined || email === '') {
-			flag = true;
-			newErrors = {...newErrors, email: 'Required'}
-    }
-		if (password === undefined || password === '') {
-			flag = true;
-			newErrors = {...newErrors, password: 'Required'}
-    }
-		setErrors(newErrors);
-		return flag;
-	}
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
 
 	const onHandleSignin = () => {
-		const { email, password } = formData;
-		if (!isEmpty() && Object.keys(errors).length === 0) {
-			auth.signIn(email, password);
-		}
+		console.log(email, password)
+		auth.signIn(email, password);
 	}
-
-	const isValidation = (field: string, value: string) => {
-		setData({ ...formData, [field]: value });
-		if (value === '') {
-			setErrors({...errors, [field]: "Required"});
-		}
-		else {
-			delete errors[field];
-			setErrors(errors);
-		}
-	}
-
+	
   return (
-		<ScreenBox backColor="purple.100">
+		<ScreenBox>
 			<VStack space={3} h="100%">
-				<Spacer></Spacer>
-				<Center mb="10">
-					<Text color="dark.500" fontSize={20} fontWeight="bold">
-						To log in
-					</Text>
+				<PoppinsText fontSize={34} color="#2B2B2B" fontWeight="bold">
+					Let's start here
+				</PoppinsText>
+				<PoppinsText fontSize={17} color="#7A7A7A">
+					Fill in your details to begin
+				</PoppinsText>
+				<View marginBottom={2}>
+					<FloatingLabelInput
+						label="E-mail"
+						value={email}
+						onChangeText={value => {
+							setEmail(value);
+						}}
+					/>
+				</View>
+				<View marginBottom={2}>
+					<FloatingLabelInput
+						isPassword
+						label="Password"
+						value={password}
+						onChangeText={value => {
+							setPassword(value);
+						}}
+					/>
+				</View>
+				<GradientButton
+					radius={15}
+					height={58}
+					text="Log in"
+					textStyle={{ fontSize: 17 }}
+					gradientBegin="#FC5C4C"
+					gradientEnd="#FD814A"
+					gradientDirection="diagonal"
+					impactStyle='Light'
+					onPressAction={onHandleSignin}
+				/>
+				<Center>
+					<HStack mb="3">
+						<PoppinsText
+							color="dark.500"
+							fontSize={15}
+						>
+							Forgot your password
+						</PoppinsText>
+						<PoppinsText
+							ml="1"
+							color="#2B2B2B"
+							fontSize={15}
+							onPress={() => navigation.navigate("ForgotPasswordScreen")}
+						>
+							Click here
+						</PoppinsText>
+					</HStack>
+					<PoppinsText
+						color="#2B2B2B"
+						fontSize={15}
+					>
+						or
+					</PoppinsText>
 				</Center>
-				<FormControl isRequired isInvalid={'email' in errors}>
-					<Input placeholder="Your email" onChangeText={(value) => isValidation('email', value)} />
-				</FormControl>
-				<FormControl isRequired isInvalid={'password' in errors}>
-					<Input type="password" placeholder="Password" onChangeText={(value) => isValidation('password', value)} />
-				</FormControl>
-
-				<Button
-					mt="5"
-					size="lg"
-					rounded="20px"
-					colorScheme="rose"
-					_text={{ color: "white" }}
-					onPress={onHandleSignin}
-				>
-					To log in
-				</Button>
-				<Spacer></Spacer>
-				<Center mb="5">
-					<Text
-						mb="5"
+				<ImageButton name="Log in with Facebook" backColor="#3B5998" textColor="white" type={0} borderWidth={0}/>
+				<ImageButton name="Log in with Google" backColor="white" textColor="#2B2B2B" type={1} borderWidth={1}/>
+				<HStack justifyContent="center">
+					<PoppinsText
 						color="dark.500"
 						fontSize={15}
-						fontWeight="bold"
+					>
+						By signing in, agree with
+					</PoppinsText>
+					<PoppinsText
+						ml="1"
+						color="#2B2B2B"
+						fontSize={15}
 						onPress={() => navigation.navigate("ForgotPasswordScreen")}
 					>
-						Forgot your password ?
-					</Text>
+						Terms of Use
+					</PoppinsText>
+				</HStack>
+				<HStack mb="5" justifyContent="center">
 					<Text
-						mb="5"
 						color="dark.500"
 						fontSize={15}
-						fontWeight="bold"
-						onPress={() => navigation.navigate("SignUpScreen")}
 					>
-						Not registered?
+						and
 					</Text>
-					<Image
-						alt="dog"
-						size="30"
-						resizeMode={"contain"}
-						source={require("../assets/images/dog.png")}
-					/>
-				</Center>
+					<Text
+						ml="1"
+						color="#2B2B2B"
+						fontSize={15}
+						onPress={() => navigation.navigate("ForgotPasswordScreen")}
+					>
+						Privacy Policy
+					</Text>
+				</HStack>
 			</VStack>
 		</ScreenBox>
   );
 }
+var styles = StyleSheet.create({
+  iconLeft: {
+    alignSelf: 'flex-start'
+  },
+});

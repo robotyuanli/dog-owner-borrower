@@ -18,10 +18,15 @@ declare global {
 
 export type OnboardingStackParamList = {
   WelcomeScreen: undefined;
+	UserTypeScreen: undefiend;
   SignInScreen: undefined;
 	SignUpScreen: undefined;
 	OwnerBorrowerScreen: undefined;
 	ForgotPasswordScreen: undefined;
+	EditDogProfileScreen: undefined;
+	EditOwnerProfileScreen: undefined;
+	EditBorrowerProfileScreen: undefined;
+	AllSetScreen: undefined;
 };
 
 export type AuthenticatedStackParamList = {
@@ -57,7 +62,6 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
 
 export type ComponentProps = {
 		children?: JSX.Element | JSX.Element[];
-		backColor: string;
 }
 
 export type ItemProps = {
