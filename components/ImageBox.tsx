@@ -10,8 +10,11 @@ import {
   VStack,
 } from "native-base";
 import { StyleSheet, Image, Pressable } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
+import Star from '../assets/svgs/star.svg';
+import Valid from '../assets/svgs/valid.svg';
+import Favourite from '../assets/svgs/favourite.svg';
+import Message from '../assets/svgs/message.svg';
 import { MailHeartButton } from "./MailHeartButton";
 
 export const ImageBox = (props: any) => {
@@ -24,41 +27,36 @@ export const ImageBox = (props: any) => {
 				<Pressable
 					onPress={() => navigation.navigate("ProfileScreen", {user: item.data()})}
 				>
-					<HStack
+					<View
 						backgroundColor="white"
-						justifyContent="center"
-						alignItems="center"
+						style={{backgroundColor: "#F7F5F5"}}
 					>
-						<Text ml="1" color="dark.400">
-							Clotilde, 2 km
+						<Text ml="1" color="#474747" fontWeight="bold">
+							Clotilde, 2 miles
 						</Text>
 						<Spacer></Spacer>
-						<FontAwesome name="star" color={theme.colors.orange[600]} />
-						<Text ml="1" mr="1" color="dark.400">
-							5
-						</Text>
-					</HStack>
+					</View>
 					<View>
 						<Image style={styles.imageThumbnail} source={{ uri: item.data().avatar }} />
-						<MailHeartButton user={item.data()}/>
+						<HStack style={{position: "absolute", top: 0}}>
+							<Star />
+							<Star />
+							<Star />
+							<Star />
+							<Star />
+						</HStack>
+						<HStack style={{position: "absolute", bottom: 5, right: 5, backgroundColor: "#F7F5F5", paddingLeft: 5}} alignItems="center" >
+							<Valid />
+							<Text ml="1" mr="3" color="#979EA6" fontWeight="bold" fontSize="10">
+								Valid
+							</Text>
+						</HStack>
+						<VStack style={{position: "absolute", top: 0, right: 0}}>
+							<Favourite />
+							<Message />
+						</VStack>
+						{/* <MailHeartButton user={item.data()}/> */}
 					</View>
-					<HStack
-					backgroundColor="white"
-					justifyContent="center"
-					alignItems="center"
-				>
-					<View ml="1">
-						<FontAwesome name="paw" color={theme.colors.yellow[300]} />
-					</View>
-					<Text ml="1" color="yellow.300">
-						Premium
-					</Text>
-					<Spacer></Spacer>
-					<FontAwesome name="upload" color={theme.colors.green[600]} />
-					<Text ml="1" mr="1" color="dark.400">
-						Valide
-					</Text>
-				</HStack>
 				</Pressable>
 			}
 		</Box>

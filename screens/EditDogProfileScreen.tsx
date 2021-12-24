@@ -18,10 +18,14 @@ import { GeneralInfo } from "../components/GeneralInfo";
 import { BehaviourList } from "../components/BehaviourList";
 import { useNavigation } from "@react-navigation/core";
 import GradientButton from "react-native-gradient-buttons";
+import { useAuth } from "../stores/useAuth";
 
 export default function EditDogProfileScreen() {
+	const auth = useAuth();
 	const navigation = useNavigation();
 	const [step, setStep] = useState(0);
+
+	console.log(auth.newUser)
 
 	const onNext = () => {
 		navigation.navigate("EditOwnerProfileScreen")

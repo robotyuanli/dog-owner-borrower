@@ -16,6 +16,7 @@ export default function useCachedResources() {
         await Font.loadAsync({
           ...FontAwesome.font,
           'Poppins': require('../assets/fonts/Poppins.ttf'),
+          'TTNorms': require('../assets/fonts/TTNorms.otf'),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service

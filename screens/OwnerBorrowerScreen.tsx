@@ -159,14 +159,6 @@ export default function OwnerBorrowerScreen() {
           >
             Register now
           </Button>
-          <Center mb="5">
-            <Image
-              alt="dog"
-              size="30"
-              resizeMode={"contain"}
-              source={require("../assets/images/dog.png")}
-            />
-          </Center>
         </VStack>
       </ScrollView>
     </ScreenBox>

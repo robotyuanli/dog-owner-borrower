@@ -8,6 +8,7 @@ import {
 } from "native-base";
 import { useNavigation } from "@react-navigation/core";
 import { ScreenBox } from "../components/ScreenBox";
+import { Footer } from "../components/Footer";
 import { PoppinsText } from "../components/PoppinsText";
 import { ImageButton } from "../components/ImageButton";
 import GradientButton from "react-native-gradient-buttons";
@@ -32,45 +33,20 @@ setGlobalStyles.inputStyles = {
 export default function SignUpScreen() {
 	const auth = useAuth();
   const navigation = useNavigation();
-	const [formData, setData] = useState({});
-  const [errors, setErrors] = useState({});
 	const [fullName, setFullName] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
-	const isEmpty = (): boolean => {
-		let flag = false;
-		let newErrors = {...errors};
-		const { email, password } = formData;
-		if (email === undefined || email === '') {
-			flag = true;
-			newErrors = {...newErrors, email: 'Required'}
-    }
-		if (password === undefined || password === '') {
-			flag = true;
-			newErrors = {...newErrors, password: 'Required'}
-    }
-		setErrors(newErrors);
-		return flag;
-	}
-
 	const onHandleSignup = () => {
-		navigation.navigate("UserTypeScreen")
+		const isValidation = email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+		if(isValidation != null && email != '' && fullName != '' && password != '') {
+			auth.saveUser({email, fullName, password}, 1);
+			navigation.navigate("UserTypeScreen")
+		}
 		// const { email, password } = formData;
 		// if (!isEmpty() && Object.keys(errors).length === 0) {
 		// 	auth.signIn(email, password);
 		// }
-	}
-
-	const isValidation = (field: string, value: string) => {
-		setData({ ...formData, [field]: value });
-		if (value === '') {
-			setErrors({...errors, [field]: "Required"});
-		}
-		else {
-			delete errors[field];
-			setErrors(errors);
-		}
 	}
 	
   return (
@@ -131,37 +107,7 @@ export default function SignUpScreen() {
 				</Center>
 				<ImageButton size={17} name="Connect with Facebook" backColor="#3B5998" textColor="white" type={0} borderWidth={0}/>
 				<ImageButton size={17} name="Connect with Google" backColor="white" textColor="#2B2B2B" type={1} borderWidth={1}/>
-				<HStack justifyContent="center" mt="2">
-					<PoppinsText
-						color="dark.500"
-						fontSize={15}
-					>
-						By signing in, agree with
-					</PoppinsText>
-					<PoppinsText
-						ml="1"
-						color="#2B2B2B"
-						fontSize={15}
-					>
-						Terms of Use
-					</PoppinsText>
-				</HStack>
-				<HStack mb="5" justifyContent="center">
-					<Text
-						color="dark.500"
-						fontSize={15}
-					>
-						and
-					</Text>
-					<Text
-						ml="1"
-						color="#2B2B2B"
-						fontSize={15}
-						onPress={() => navigation.navigate("ForgotPasswordScreen")}
-					>
-						Privacy Policy
-					</Text>
-				</HStack>
+				<Footer />
 			</VStack>
 		</ScreenBox>
   );

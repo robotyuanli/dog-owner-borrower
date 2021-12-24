@@ -4,7 +4,7 @@ import {
   TextArea,
   VStack,
   Input,
-  Button,
+  View,
   Spacer,
 	Center,
 } from "native-base";
@@ -17,6 +17,8 @@ import { ScreenBox } from "../components/ScreenBox";
 import { useAuth } from "../stores/useAuth";
 import { firebase } from "../firebase/config";
 import { useNavigation } from "@react-navigation/core";
+import { PoppinsText } from "../components/PoppinsText";
+import GradientButton from "react-native-gradient-buttons";
 
 export default function EditProfileScreen() {
 	const auth = useAuth()
@@ -98,33 +100,41 @@ export default function EditProfileScreen() {
 				</Center>
 				<Input
 					mt="3"
+					mb="3"
+					size="lg"
 					type="text"
+					variant="unstyled"
 					placeholder="Name"
-					fontSize={12}
 					value={name}
 					onChangeText={(value) => setName(value)}
 					placeholderTextColor="grey"
+					backgroundColor="#F0F0F0"
 				/>
-				<Text color="dark.400" mt="3">About your doggie</Text>
+				<PoppinsText color="dark.400" mt="3">About your doggie</PoppinsText>
 				<TextArea
+					mt="3"
 					h={20}
-					fontSize={15}
+					size="lg"
+					variant="unstyled"
+					backgroundColor="#F0F0F0"
 					value={doggieContent}
 					onChangeText={(value) => setDoggieContent(value)}
 					placeholderTextColor="grey"
 				/>
 				<Spacer></Spacer>
-				<Button
-					mt="5"
-					mb="5"
-					size="lg"
-					rounded="20px"
-					colorScheme="rose"
-					_text={{ color: "white" }}
-					onPress={profileUpdate}
-				>
-					Save
-				</Button>
+				<View mb="5">
+					<GradientButton
+						radius={15}
+						height={58}
+						text="Save"
+						textStyle={{ fontSize: 17 }}
+						gradientBegin="#FC5C4C"
+						gradientEnd="#FD814A"
+						gradientDirection="diagonal"
+						impactStyle='Light'
+						onPressAction={profileUpdate}
+					/>
+				</View>
 			</VStack>
 		</ScreenBox>
   );

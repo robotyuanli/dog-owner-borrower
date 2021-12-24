@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { Text, Box, HStack, Spacer, Divider, Slider, Button, VStack, View } from "native-base";
 import { NavbarItem } from "../components/NavbarItem";
 import { useAuth } from "../stores/useAuth";
+import GradientButton from "react-native-gradient-buttons";
 
 const NavbarScreen = () => {
-	const auth = useAuth()
-	const {distance} = auth
 
   return (
 			<Box p="5" backgroundColor="white" h="100%">
@@ -14,7 +13,7 @@ const NavbarScreen = () => {
 						<HStack>
 							<Text color="dark.300" fontSize={16}>Search distance:</Text>
 							<Spacer></Spacer>
-							<Text color="rose.500">{distance} km</Text>
+							<Text color="rose.500">10 km</Text>
 						</HStack>
 						<Slider
 							mt="5"
@@ -41,15 +40,16 @@ const NavbarScreen = () => {
 						<NavbarItem item={{name: "Week / weekends"}} />
 					</View>
 					<Spacer></Spacer>
-					<Button
-						mt="5"
-						size="lg"
-						rounded="20px"
-						colorScheme="rose"
-						_text={{ color: "white" }}
-					>
-						To apply
-					</Button>		
+					<GradientButton
+						radius={15}
+						height={58}
+						text="To apply"
+						textStyle={{ fontSize: 17 }}
+						gradientBegin="#FC5C4C"
+						gradientEnd="#FD814A"
+						gradientDirection="diagonal"
+						impactStyle='Light'
+					/>
 				</VStack>
 			</Box>
 	);

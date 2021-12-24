@@ -16,14 +16,11 @@ export default function ProfileScreen() {
 			<View p="5">
 				<Text color="dark.400" fontSize={18}>{user.name}</Text>
 				<HStack mt="3" mb="3" justifyContent="center" alignItems="center">
-					<FontAwesome name="paw" color={theme.colors.yellow[400]} />
-					<Text color="dark.400" ml="1">Premium</Text>
-					<Spacer></Spacer>
 					<FontAwesome name="upload" color={theme.colors.green[600]} />
-					<Text color="dark.400" ml="1">Valide</Text>
-					<Spacer></Spacer>
+					<Text color="dark.400" ml="1" mr="10">Valide</Text>
 					<FontAwesome name="star" color={theme.colors.yellow[400]} />
 					<Text color="dark.400" ml="1">5 (1 review)</Text>
+					<Spacer></Spacer>
 				</HStack>
 				<Text color="dark.400">
 					Passionate about dogs for a long time, I myself grew up with a Collie for 13 years, I love taking care of animals. I will know how to ensure the safety of your animals while having fun! It is a real pleasure for me to spend time with them. I am available weekday evenings, weekends / holidays!
@@ -38,7 +35,6 @@ export default function ProfileScreen() {
 					longitudeDelta: 0.0421,
 				}}
 			/>
-			<MailHeartButton user={user} />
 		</Box>
 	);
 }

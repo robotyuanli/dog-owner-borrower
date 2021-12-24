@@ -8,6 +8,7 @@ import {
 } from "native-base";
 import { useNavigation } from "@react-navigation/core";
 import { ScreenBox } from "../components/ScreenBox";
+import { Footer } from "../components/Footer";
 import { PoppinsText } from "../components/PoppinsText";
 import { ImageButton } from "../components/ImageButton";
 import GradientButton from "react-native-gradient-buttons";
@@ -37,7 +38,6 @@ export default function SignInScreen() {
 	const [password, setPassword] = useState('')
 
 	const onHandleSignin = () => {
-		console.log(email, password)
 		auth.signIn(email, password);
 	}
 	
@@ -106,38 +106,7 @@ export default function SignInScreen() {
 				</Center>
 				<ImageButton name="Log in with Facebook" backColor="#3B5998" textColor="white" type={0} borderWidth={0}/>
 				<ImageButton name="Log in with Google" backColor="white" textColor="#2B2B2B" type={1} borderWidth={1}/>
-				<HStack justifyContent="center">
-					<PoppinsText
-						color="dark.500"
-						fontSize={15}
-					>
-						By signing in, agree with
-					</PoppinsText>
-					<PoppinsText
-						ml="1"
-						color="#2B2B2B"
-						fontSize={15}
-						onPress={() => navigation.navigate("ForgotPasswordScreen")}
-					>
-						Terms of Use
-					</PoppinsText>
-				</HStack>
-				<HStack mb="5" justifyContent="center">
-					<Text
-						color="dark.500"
-						fontSize={15}
-					>
-						and
-					</Text>
-					<Text
-						ml="1"
-						color="#2B2B2B"
-						fontSize={15}
-						onPress={() => navigation.navigate("ForgotPasswordScreen")}
-					>
-						Privacy Policy
-					</Text>
-				</HStack>
+				<Footer />
 			</VStack>
 		</ScreenBox>
   );

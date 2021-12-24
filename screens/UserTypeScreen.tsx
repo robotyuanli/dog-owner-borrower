@@ -6,6 +6,7 @@ import { PoppinsText } from "../components/PoppinsText";
 import GradientButton from "react-native-gradient-buttons";
 import { FloatingLabelInput, setGlobalStyles  } from 'react-native-floating-label-input';
 import Owner from '../assets/svgs/owner.svg';
+import { useAuth } from "../stores/useAuth";
 import Borrower from '../assets/svgs/borrower.svg';
 import { Pressable } from "react-native";
 
@@ -24,6 +25,7 @@ setGlobalStyles.inputStyles = {
 };
 
 export default function UserTypeScreen() {
+	const auth = useAuth();
 	const [step, setStep] = useState(1);
 	const [address, setAddress] = useState("");
 	const [postalCode, setPostalCode] = useState("");
@@ -69,15 +71,24 @@ export default function UserTypeScreen() {
 
 	const onNext = () => {
 		if(step == 3) {
-			if(ownerWidth == 1) {
-				navigation.navigate("EditDogProfileScreen")
-			}
-			if(borrowerWidth == 1) {
-				navigation.navigate("EditBorrowerProfileScreen")
+			if(address != "" && postalCode != "" && suite != "") {
+				auth.saveUser({address, postalCode, suite}, 3)
+				if(ownerWidth == 1) {
+					navigation.navigate("EditDogProfileScreen")
+				}
+				if(borrowerWidth == 1) {
+					navigation.navigate("EditBorrowerProfileScreen")
+				}
 			}
 		}
 		if(step == 2) {
 			setStep(3)
+			if(ownerWidth == 1) {
+				auth.saveUser({type: "owner"}, 2)
+			}
+			else {
+				auth.saveUser({type: "borrower"}, 2)
+			}
 		}
 	}
 

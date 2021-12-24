@@ -16,10 +16,10 @@ import WelcomeScreen from "../screens/WelcomeScreen";
 import SignInScreen from "../screens/SignInScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
-import SearchScreen from "../screens/SearchScreen";
+import HomeScreen from "../screens/HomeScreen";
 import MessageScreen from "../screens/MessageScreen";
 import FavouriteScreen from "../screens/FavouriteScreen";
-import PremiumScreen from "../screens/PremiumScreen";
+import SettingsScreen from "../screens/SettingsScreen";
 import UserTypeScreen from "../screens/UserTypeScreen";
 import OwnerBorrowerScreen from "../screens/OwnerBorrowerScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
@@ -28,15 +28,23 @@ import EditOwnerProfileScreen from "../screens/EditOwnerProfileScreen";
 import AllSetScreen from "../screens/AllSetScreen";
 import EditBorrowerProfileScreen from "../screens/EditBorrowerProfileScreen";
 import ContactScreen from "../screens/ContactScreen";
-import HelpScreen from "../screens/HelpScreen";
+import FAQScreen from "../screens/FAQScreen";
 import ChatScreen from "../screens/ChatScreen";
 import NavbarScreen from "../screens/NavbarScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import { SearchTitle } from "../components/SearchTitle";
-import { SearchLeft } from "../components/SearchLeft";
-import { SearchRight } from "../components/SearchRight";
-import { PremiumBack } from "../components/PremiumBack";
+import { HeaderLeft } from "../components/HeaderLeft";
+import { HeaderRight } from "../components/HeaderRight";
 import { NavbarRight } from "../components/NavbarRight";
+import { TouchableOpacity, StyleSheet } from "react-native";
+import HomeActive from '../assets/svgs/home-active.svg';
+import ChatActive from '../assets/svgs/chat-active.svg';
+import LoveActive from '../assets/svgs/love-active.svg';
+import SettingsActive from '../assets/svgs/settings-active.svg';
+import Home from '../assets/svgs/home.svg';
+import Chat from '../assets/svgs/chat.svg';
+import Love from '../assets/svgs/love.svg';
+import Settings from '../assets/svgs/settings.svg';
+import Dog from '../assets/svgs/dog.svg';
 
 import {
   OnboardingStackParamList,
@@ -47,7 +55,7 @@ import {
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { useAuth } from "../stores/useAuth";
-import { theme, useTheme, Text } from "native-base";
+import { theme, useTheme, Text, View } from "native-base";
 
 export default function Navigation() {
   const MyTheme = {
@@ -187,9 +195,8 @@ function AuthenticatedNavigator() {
         component={ProfileScreen}
         options={{
 					title: "",
-					headerTintColor: "white",
 					headerStyle: {
-						backgroundColor: "#ff2643"
+						backgroundColor: "#white"
 					},
         }}
       />
@@ -198,10 +205,9 @@ function AuthenticatedNavigator() {
         component={EditProfileScreen}
         options={{
           title: "Edit Profile",
-					headerTintColor: "white",
 					headerTitleAlign: "center",
 					headerStyle: {
-						backgroundColor: "#ff2643"
+						backgroundColor: "#white"
 					},
         }}
       />
@@ -209,23 +215,19 @@ function AuthenticatedNavigator() {
         name="ContactScreen"
         component={ContactScreen}
         options={{
-          title: "Contact us",
-					headerTintColor: "white",
-					headerTitleAlign: "center",
+          title: "",
 					headerStyle: {
-						backgroundColor: "#ff2643"
+						backgroundColor: "#white"
 					},
         }}
       />
       <AuthenticatedStack.Screen
-        name="HelpScreen"
-        component={HelpScreen}
+        name="FAQScreen"
+        component={FAQScreen}
         options={{
-          title: "FAQ",
-					headerTintColor: "white",
-					headerTitleAlign: "center",
+          title: "",
 					headerStyle: {
-						backgroundColor: "#ff2643"
+						backgroundColor: "#white"
 					},
         }}
       />
@@ -275,119 +277,149 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
-      initialRouteName="SearchScreen"
+      initialRouteName="HomeScreen"
+			tabBar={props => <MyTabBar {...props} />}
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#ff2643",
+          backgroundColor: "white",
         },
       }}
     >
       <BottomTab.Screen
-        name="SearchScreen"
-        component={SearchScreen}
+        name="HomeScreen"
+        component={HomeScreen}
         options={() => ({
+          title: "Home",
           headerTitleAlign: "center",
           headerTintColor: "white",
-          headerTitle: () => <SearchTitle />,
-          headerLeft: () => <SearchLeft />,
-          headerRight: () => <SearchRight />,
-          tabBarLabel: () => {
-            return null;
-          },
-          tabBarIcon: ({ focused }) => (
-            <TabBarIcon
-              name="search"
-              title="Search"
-              color={focused ? theme.colors.rose[500] : theme.colors.dark[500]}
-            />
-          ),
+          headerLeft: () => <HeaderLeft />,
+          headerRight: () => <HeaderRight />,
         })}
       />
       <BottomTab.Screen
         name="MessageScreen"
         component={MessageScreen}
         options={{
-          title: "Messages",
+          title: "Chat",
           headerTitleAlign: "center",
           headerTintColor: "white",
-          tabBarLabel: () => {
-            return null;
-          },
-          tabBarIcon: ({ focused }) => (
-            <TabBarIcon
-              name="envelope"
-              title="Message"
-              color={focused ? theme.colors.rose[500] : theme.colors.dark[500]}
-            />
-          ),
+          headerLeft: () => <HeaderLeft />,
+          headerRight: () => <HeaderRight />,
+        }}
+      />
+			<BottomTab.Screen
+        name="Dog"
+        component={MessageScreen}
+        options={{
+          title: "Dog",
         }}
       />
       <BottomTab.Screen
         name="FavouriteScreen"
         component={FavouriteScreen}
         options={() => ({
-          headerStyle: {
-            elevation: 0,
-            backgroundColor: "#ff2643",
-          },
-          title: "Favourite",
+          title: "Love",
           headerTitleAlign: "center",
           headerTintColor: "white",
-          tabBarLabel: () => {
-            return null;
-          },
-          tabBarIcon: ({ focused }) => (
-            <TabBarIcon
-              name="heart"
-              title="Favourite"
-              color={focused ? theme.colors.rose[500] : theme.colors.dark[500]}
-            />
-          ),
+          headerLeft: () => <HeaderLeft />,
+          headerRight: () => <HeaderRight />,
         })}
       />
       <BottomTab.Screen
-        name="PremiumScreen"
-        component={PremiumScreen}
+        name="SettingsScreen"
+        component={SettingsScreen}
         options={({ route }) => ({
-          headerStyle: {
-            elevation: 0,
-            backgroundColor: "#ff2643",
-          },
           title: "Settings",
           headerTitleAlign: "center",
           headerTintColor: "white",
-          headerLeft: () => <PremiumBack />,
-          tabBarLabel: () => {
-            return null;
-          },
-          tabBarIcon: ({ focused }) => (
-            <TabBarIcon
-              name="cog"
-              title="Settings"
-              color={
-                focused ? theme.colors.rose[500] : theme.colors.dark[500]
-              }
-            />
-          ),
+          headerLeft: () => <HeaderLeft />,
         })}
       />
     </BottomTab.Navigator>
   );
 }
 
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
-  title: string;
-}) {
-  const name = props.name;
+function MyTabBar({ state, descriptors, navigation }) {
   return (
-    <>
-      <FontAwesome size={18} style={{}} {...props} />
-			<Text {...props}>{props.title}</Text>
-    </>
+    <View style={styles.shadowContainerStyle}>
+      {state.routes.map((route, index) => {
+        const { options } = descriptors[route.key];
+        const isFocused = state.index === index;
+
+        const onPress = () => {
+          const event = navigation.emit({
+            type: 'tabPress',
+            target: route.key,
+          });
+
+          if (!isFocused && !event.defaultPrevented) {
+            navigation.navigate(route.name);
+          }
+        };
+
+        const onLongPress = () => {
+          navigation.emit({
+            type: 'tabLongPress',
+            target: route.key,
+          });
+        };
+
+        return (
+          <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityStates={isFocused ? ['selected'] : []}
+            accessibilityLabel={options.tabBarAccessibilityLabel}
+            testID={options.tabBarTestID}
+            onPress={onPress}
+            onLongPress={onLongPress}
+            style={{ flex: 1, alignItems:"center" }}
+          >
+						{options.title == "Home" && isFocused && <HomeActive />}
+						{options.title == "Chat" && isFocused && <ChatActive />}
+						{options.title == "Love" && isFocused && <LoveActive />}
+						{options.title == "Settings" && isFocused && <SettingsActive />}
+						{options.title == "Home" && !isFocused && <Home />}
+						{options.title == "Chat" && !isFocused && <Chat />}
+						{options.title == "Love" && !isFocused && <Love />}
+						{options.title == "Settings" && !isFocused && <Settings />}
+						{options.title == "Dog" && 
+							<View style={styles.dogContainer}>
+								<Dog />
+							</View>
+						}
+          </TouchableOpacity>
+        );
+      })}
+		
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  shadowContainerStyle: {   //<--- Style with elevation
+		flexDirection: 'row',
+		backgroundColor:"#FFFFFF",
+		height:91,
+		borderRadius:50,
+		justifyContent:"center",
+		alignItems:"center",
+    borderColor: '#ddd',
+    borderBottomWidth: 2,
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.9,
+    shadowRadius: 5,
+    elevation: 10	,
+  },
+	dogContainer: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		position: "absolute",
+		top: -60,
+		width: 65,
+		height: 65,
+		borderRadius: 65 / 2,
+		backgroundColor: '#FFAC5F'
+	},
+})

@@ -1,9 +1,10 @@
 import * as React from "react";
-import { Box, Center, Image, HStack, Spacer } from "native-base";
+import { Box, Center, Image, HStack, Spacer, View } from "native-base";
 import { useNavigation } from "@react-navigation/core";
 import { PoppinsText } from "../components/PoppinsText";
 import GradientButton from "react-native-gradient-buttons";
-import { View, ImageBackground, StyleSheet } from "react-native";
+import { ImageBackground, StyleSheet } from "react-native";
+import Logo from '../assets/svgs/logo.svg';
 
 export default function DogOwnerScreen() {
   const navigation = useNavigation();
@@ -18,23 +19,9 @@ export default function DogOwnerScreen() {
 					px="6"
 					py="0"
 				>
-				<HStack mt="20">
-					<Image
-						alt="logo"
-						width="40px"
-						height="40px"
-						resizeMode={"contain"}
-						source={require("../assets/images/logo.png")}
-					/>
-					<Image
-						ml="2"
-						alt="logo"
-						width="74px"
-						height="37px"
-						resizeMode={"contain"}
-						source={require("../assets/images/logo-text.png")}
-					/>
-				</HStack>
+				<View mt="20">
+					<Logo />
+				</View>
 				<Spacer />
 				<Center>
 					<Image
@@ -76,7 +63,6 @@ export default function DogOwnerScreen() {
 						ml="2"
 						color="orange.400"
 						fontSize={13}
-						fontWeight="bold"
 						onPress={() => navigation.navigate("SignInScreen")}
 					>
 						Log in
